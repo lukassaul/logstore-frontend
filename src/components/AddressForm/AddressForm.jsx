@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import QRCode from 'react-qr-code';
 import Countdown from 'react-countdown';
 import InputField from './InputField';
+import { ProductContext, ProductDispath } from '../Context/ContextProvider';
 
 
 export default function Form() {
   const navigate = useNavigate()
+  const { dispath } = useContext(ProductDispath);
+  const { state } = useContext(ProductContext);
+
   const [ step, setStep ] = useState(1)
   const [copied, setCopied] = useState(false)
   const [timerEnd, setTimerEnd] = useState(false);
@@ -54,6 +58,21 @@ export default function Form() {
     if (!isDataValid) return
 
     console.log("data valid: ", isDataValid)
+    let address = {
+      "contact_number": contactNumber,
+      "email": email,
+      "first_name": firstName,
+      "last_name": lastName,
+      "country": country,
+      "street_address": streetAddress,
+      "apt_other": aptOther,
+      "city": city,
+      "state": stateUs,
+      "postal_code": postalCode,
+      "province": province 
+    }
+    dispath({ type: "SHIPPING_ADDRESS", payload: address })
+    setStep(2)
     
   };
 
@@ -166,10 +185,6 @@ export default function Form() {
       setStreetAddressErrMsg("Street address must not exceed 100 characters.")
       isValid = false
     }
-    if (!aptOther) {
-      setAptOtherErrMsg("Apt/Suite/Other is required.")
-      isValid = false
-    }
     if (aptOther && aptOther.length > 100) {
       setAptOtherErrMsg("Apt/Suite/Other must not exceed 100 characters.")
       isValid = false
@@ -238,6 +253,28 @@ export default function Form() {
     }
   };
 
+  function generateAddress() {
+    try {
+        var hd = window.coinjs.hd(process.env.REACT_APP_XPUB)
+        let x = Math.random() * 100;
+        const INDEX = Math.floor(x)
+
+        var address = hd.derive(INDEX)
+        console.log("generated address: ", address)
+        
+    }catch(e) {
+        console.log("ERROR")
+    }
+  }
+
+  function isEmptyObject(obj){
+    return JSON.stringify(obj) === '{}'
+  }
+
+  useEffect(() => {
+    //generateAddress()
+  }, [])
+
 
   const ResetCountdown = () => {
       setCountdownDate(Date.now() + 1200000)
@@ -252,7 +289,7 @@ export default function Form() {
             <div className="frow">
               <InputField
                 type="text"
-                label="Contact number"
+                label="Contact number*"
                 name="contactNumber"
                 handleChange={handleChange}
                 errMsg={contactNumberErrMsg}
@@ -269,7 +306,7 @@ export default function Form() {
             
             <InputField
                 type="text"
-                label="First name"
+                label="First name*"
                 name="firstName"
                 handleChange={handleChange}
                 errMsg={firstNameErrMsg}
@@ -277,7 +314,7 @@ export default function Form() {
             
             <InputField
                 type="text"
-                label="Last name"
+                label="Last name*"
                 name="lastName"
                 handleChange={handleChange}
                 errMsg={lastNameErrMsg}
@@ -285,7 +322,7 @@ export default function Form() {
 
             <InputField
                 type="text"
-                label="Country"
+                label="Country*"
                 name="country"
                 handleChange={handleChange}
                 errMsg={countryErrMsg}
@@ -293,7 +330,7 @@ export default function Form() {
             
             <InputField
                 type="text"
-                label="Street address"
+                label="Street address*"
                 name="streetAddress"
                 handleChange={handleChange}
                 errMsg={streetAddressErrMsg}
@@ -309,7 +346,7 @@ export default function Form() {
 
             <InputField
                 type="text"
-                label="City"
+                label="City*"
                 name="city"
                 handleChange={handleChange}
                 errMsg={cityErrMsg}
@@ -329,7 +366,7 @@ export default function Form() {
             <div className="frow">
               <InputField
                   type="text"
-                  label="Postal code"
+                  label="Postal code*"
                   name="postalCode"
                   handleChange={handleChange}
                   errMsg={postalCodeErrMsg}
@@ -337,7 +374,7 @@ export default function Form() {
 
               <InputField
                   type="text"
-                  label="Province"
+                  label="Province*"
                   name="province"
                   handleChange={handleChange}
                   errMsg={provinceErrMsg}
@@ -356,34 +393,37 @@ export default function Form() {
         {step===2 ?
           <>
             {!timerEnd ?
-              <div className="fcentercol">
-                  <Countdown date={countdownDate} renderer={renderer} />
-                  <p className="text-center word-wrap mt1">Send woodcoin before timer ends</p>
-              </div>
+              <>
+                <div className="fcentercol">
+                    <Countdown date={countdownDate} renderer={renderer} />
+                    <p className="text-center word-wrap mt1">Send woodcoin before timer ends</p>
+                </div>
+                <div className="fcentercol">
+                    <div style={{ height: "auto", margin: "0 auto", maxWidth: 128, width: "100%" }}>
+                      <QRCode
+                        size={256}
+                        style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                        value="Wbj4WLUhYpiRpr8HhRT9gdcdvHEW8dVnDx"
+                        viewBox={`0 0 256 256`}
+                      />
+                    </div>
+                    <p className="font-bold mb0 tactr">Log Address</p>
+                    <p 
+                        className="fs12px pointer mb0 greenFont pointer tactr" 
+                        style={{marginBottom: '0 !important'}} 
+                        onClick={() => {showCopiedNotification(); navigator.clipboard.writeText("Wbj4WLUhYpiRpr8HhRT9gdcdvHEW8dVnDx")}}
+                    >
+                        Wbj4WLUhYpiRpr8HhRT9gdcdvHEW8dVnDx
+                    </p>
+                    <div style={{height: "24px"}}>
+                        {copied ? <span className="font-success fs12px">LOG address copied</span> : null}
+                    </div>
+                </div>
+              </>
               :
               null 
             }
-            <div className="fcentercol">
-                <div style={{ height: "auto", margin: "0 auto", maxWidth: 128, width: "100%" }}>
-                  <QRCode
-                    size={256}
-                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                    value="Wbj4WLUhYpiRpr8HhRT9gdcdvHEW8dVnDx"
-                    viewBox={`0 0 256 256`}
-                  />
-                </div>
-                <p className="font-bold mb0 tactr">Log Address</p>
-                <p 
-                    className="fs12px pointer mb0 greenFont pointer tactr" 
-                    style={{marginBottom: '0 !important'}} 
-                    onClick={() => {showCopiedNotification(); navigator.clipboard.writeText("Wbj4WLUhYpiRpr8HhRT9gdcdvHEW8dVnDx")}}
-                >
-                    Wbj4WLUhYpiRpr8HhRT9gdcdvHEW8dVnDx
-                </p>
-                <div style={{height: "24px"}}>
-                    {copied ? <span className="font-success fs12px">LOG address copied</span> : null}
-                </div>
-            </div>
+            
           </>
           : 
           null
@@ -392,104 +432,3 @@ export default function Form() {
     </>
   );
 }
-
-
-            {/* <div className={contactNumberErrMsg ? "input-group error" : "input-group"}>
-                <label htmlFor="email">Contact number*</label>
-                <input 
-                  type="text" 
-                  onChange={(value) => handleChange(value, "contactNumber")}
-                />
-                <span className="msg">{contactNumberErrMsg}</span>
-              </div>
-              <div className={emailErrMsg ? "input-group error" : "input-group"}>
-                <label htmlFor="email">Email</label>
-                <input 
-                  type="email" 
-                  onChange={(value) => handleChange(value, "email")}
-                />
-                <span className="msg">{emailErrMsg}</span>
-              </div>
-              <div className={firstNameErrMsg ? "input-group error" : "input-group"}>
-              <label htmlFor="email">First name*</label>
-              <input 
-                type="text"
-                onChange={(value) => handleChange(value, "firstName")}
-              />
-              <span className="msg">{firstNameErrMsg}</span>
-            </div>
-
-            <div className={lastNameErrMsg ? "input-group error" : "input-group"}>
-              <label htmlFor="email">Last name*</label>
-              <input 
-                type="text"
-                onChange={(value) => handleChange(value, "lastName")}
-              />
-              <span className="msg">{lastNameErrMsg}</span>
-            </div>
-
-            <div className={countryErrMsg ? "input-group error" : "input-group"}>
-              <label htmlFor="email">Country*</label>
-              <input 
-                type="text"
-                onChange={(value) => handleChange(value, "country")} 
-              />
-              <span className="msg">{countryErrMsg}</span>
-            </div>
-
-            <div className={streetAddressErrMsg ? "input-group error" : "input-group"}>
-              <label htmlFor="email">Street address*</label>
-              <input 
-                type="text"
-                onChange={(value) => handleChange(value, "streetAddress")}
-              />
-              <span className="msg">{streetAddressErrMsg}</span>
-            </div>
-
-            <div className={aptOtherErrMsg ? "input-group error" : "input-group"}>
-              <label htmlFor="email">Apt/Suite/Other</label>
-              <input 
-                type="text" 
-                onChange={(value) => handleChange(value, "aptOther")}
-              />
-              <span className="msg">{aptOtherErrMsg}</span>
-            </div>
-
-            <div className={cityErrMsg ? "input-group error" : "input-group"}>
-              <label htmlFor="email">City*</label>
-              <input 
-                type="text" 
-                onChange={(value) => handleChange(value, "city")}
-              />
-              <span className="msg">{cityErrMsg}</span>
-            </div>
-
-            <div className={stateErrMsg ? "input-group error" : "input-group"}>
-              <label htmlFor="email">State (if US)</label>
-              <input 
-                type="text" 
-                onChange={(value) => handleChange(value, "stateUs")}
-              />
-              <span className="msg">{stateErrMsg}</span>
-            </div>
-
-            <div className="frow">
-              <div className={postalCodeErrMsg ? "input-group error" : "input-group"}>
-                <label htmlFor="email">Postal code*</label>
-                <input 
-                  type="text" 
-                  onChange={(value) => handleChange(value, "postalCode")}
-                />
-                <span className="msg">{postalCodeErrMsg}</span>
-              </div>
-
-              <div className={provinceErrMsg ? "input-group error" : "input-group"}>
-                <label htmlFor="email">Province*</label>
-                <input 
-                  type="text" 
-                  onChange={(value) => handleChange(value, "province")}
-                />
-                <span className="msg">{provinceErrMsg}</span>
-              </div>
-            </div>
-*/}

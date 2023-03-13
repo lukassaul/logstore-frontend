@@ -7,6 +7,8 @@ import CheckoutItem from "../components/Basket/ CheckoutItem";
 export default function Checkout() {
     const { state } = useContext(ProductContext);
     const [ paymentReceived, setPaymentReceived ] = useState(true) 
+
+    console.log("shipping address: ", state.shippingAddress)
     return (
         <div className="checkout_container grayFont">
             {paymentReceived ? 
@@ -82,10 +84,12 @@ export default function Checkout() {
 
                         <p className="fs-26px grayFont bold">Shipping address</p>
                         <div className="bbgreen mb2 pv1h1">
-                            <p>Jonathan De Jesus</p>
-                            <p>Barangay 49 A Akasya, 305 Balagtas St. San Antonio</p>
-                            <p>Cavite city, Cavite 4100</p>
-                            <p>09171234567 / 09157654321</p>
+                            <p>{state.shippingAddress.first_name} {state.shippingAddress.last_name}</p>
+                            <p>{state.shippingAddress.street_address}</p>
+                            {state.shippingAddress.apt_other ? <p>| {state.shippingAddress.apt_other}</p> : null}
+                            <p>{state.shippingAddress.city}, {state.shippingAddress.province} {state.shippingAddress.postal_code}</p>
+                            <p>{state.shippingAddress.country}</p>
+                            <p>{state.shippingAddress.contact_number} {state.shippingAddress.email ? <span>| {state.shippingAddress.email}</span> : null} </p>
                         </div>
 
                         <p className="fs-26px grayFont bold">Delivery date</p>

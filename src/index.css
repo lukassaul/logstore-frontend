@@ -279,7 +279,7 @@ body {
   min-height: 60vh;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   row-gap: 20px;
   padding: 16px;
@@ -1736,6 +1736,13 @@ body {
   .basket_content,
   .basket_counter {
     padding: 10px 15px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .favorite_container,
+  .product_container {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

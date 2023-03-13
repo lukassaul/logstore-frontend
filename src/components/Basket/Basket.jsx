@@ -92,7 +92,7 @@ export default function Basket() {
         <div className="favorite_empty">
           <img
             className="favorite_empty_img"
-            src="images/empty-cart.png"
+            src="images/empty-basket.png"
             alt=""
           />
           <span className="favorite_empty_title">The shopping cart is empty</span>
