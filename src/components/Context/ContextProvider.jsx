@@ -18,7 +18,8 @@ const initialState = {
   offerPrice: 0,
   totalPriceFinal: priceTotal,
   isEnterOfferCode: false,
-  offerMessage: ""
+  offerMessage: "",
+  shippingAddress: {}
 };
 
 const sumPrice = (items, isOffer) => {
@@ -146,6 +147,12 @@ const reduce = (state, action) => {
       return {
         ...state,
         ...sumPrice(state.basket, state.isEnterOfferCode)
+      };
+    }
+    case "SHIPPING_ADDRESS": {
+      state.shippingAddress = action.payload
+      return {
+        ...state,
       };
     }
     default:
