@@ -82,7 +82,7 @@ export default function Details() {
           {!checkBasket &&
             <button
               onClick={() =>
-                dispath({ type: "ADD_TO_BASKET", payload: datas.id })
+                dispath({ type: "ADD_TO_BASKET", payload: datas._id })
               }
               className="card_buy"
             >
