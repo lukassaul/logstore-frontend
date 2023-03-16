@@ -4,11 +4,15 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { ProductContext, ProductDispath } from "../Context/ContextProvider";
 
 export default function Buttons(props) {
-  console.log("button props: ", props)
+  
   const { dispath } = useContext(ProductDispath);
   const { state } = useContext(ProductContext);
   const { _id, totalQty } = props;
   const countItem = state.basket.find((product) => product._id === _id);
+
+  // console.log("button props: ", props)
+  // console.log("button basket: ", state.basket)
+  // console.log("button countItem: ", countItem)
 
   /*
     Checks the item count in the basket if against the
@@ -29,8 +33,8 @@ export default function Buttons(props) {
       >
         <AiOutlinePlus />
       </span>
-      <span className="counter_number">{countItem.count}</span>
-      {countItem.count === 1 ? (
+      <span className="counter_number">{countItem && countItem.count}</span>
+      {countItem && countItem.count === 1 ? (
         <span
           onClick={() => dispath({ type: "REMOVE_FROM_BASKET", payload: _id })}
           className="basket_minus"

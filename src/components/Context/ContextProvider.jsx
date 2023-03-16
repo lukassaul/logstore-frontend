@@ -12,7 +12,7 @@ const setItemFunc = (basket) => {
 }
 
 const initialState = {
-  allProducts,
+  allProducts: [],
   basket: items,
   totalPrice: 0,
   totalPriceAfterOffer: 0,
@@ -179,15 +179,15 @@ export const ProductDispath = createContext();
 export default function ContextProvider({ children }) {
   const [state, dispath] = useReducer(reduce, initialState);
 
-  // const getProducts = async() => {
-  //   let p = await GetProductsAPI()
-  //   console.log("get products: ", p.status)
-  //   if (p.data.message) dispath({ type: "SET_PRODUCTS", payload: p.data.message })
-  // }
+  const getProducts = async() => {
+    let p = await GetProductsAPI()
+    console.log("get products: ", p.status)
+    if (p.data.message) dispath({ type: "SET_PRODUCTS", payload: p.data.message })
+  }
   
-  // useEffect(() => {
-  //   getProducts()
-  // }, [])
+  useEffect(() => {
+    getProducts()
+  }, [])
 
   return (
     <ProductContext.Provider value={{ state }}>
