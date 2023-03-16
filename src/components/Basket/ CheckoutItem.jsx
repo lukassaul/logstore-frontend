@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function CheckoutItem(props) {
   return (
     <div className="basket_item">
-      <Link className="basket_link" to={`/${props.id}`}>
+      <Link className="basket_link" to={`/${props._id}`}>
         <div className="basket_img">
           <img src={props.image} alt="basket_item" />
         </div>

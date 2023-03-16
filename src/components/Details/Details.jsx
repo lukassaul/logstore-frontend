@@ -11,8 +11,8 @@ export default function Details() {
   const { state } = useContext(ProductContext);
   const { dispath } = useContext(ProductDispath);
   const params = useParams();
-  const datas = state.allProducts.find((product) => product.id == params.id);
-  const checkBasket = state.basket.some((product) => product.id == params.id);
+  const datas = state.allProducts.find((product) => product._id == params.id);
+  const checkBasket = state.basket.some((product) => product._id == params.id);
 
   // useEffect(() => {
   //   if(datas.description){
@@ -20,6 +20,11 @@ export default function Details() {
   //     elem.textContent = datas.description
   //   }
   // }, [datas])
+  console.log("details params: ", params)
+  console.log("details allProducts: ", state.allProducts)
+  console.log("details datas: ", datas)
+  console.log("details checkbastket: ", checkBasket)
+
 
   return (
     <div className="details_container">

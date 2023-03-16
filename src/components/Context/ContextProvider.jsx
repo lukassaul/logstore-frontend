@@ -1,7 +1,8 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect, useState } from "react";
 import allProducts from "../../Data";
 import offerCode from "../../Offer";
 import { sendPrice } from "../../Offer";
+import { GetProductsAPI } from "../../api/getProducts";
 
 const items = localStorage.getItem('cartItems') !== null ? JSON.parse(localStorage.getItem('cartItems')) : []
 const priceTotal = localStorage.getItem('priceTotal') !== null ? JSON.parse(localStorage.getItem('priceTotal')) : 0
@@ -19,7 +20,8 @@ const initialState = {
   totalPriceFinal: priceTotal,
   isEnterOfferCode: false,
   offerMessage: "",
-  shippingAddress: {}
+  shippingAddress: {},
+  paymentReceived: false
 };
 
 const sumPrice = (items, isOffer) => {
@@ -59,13 +61,18 @@ const sumPriceWithSend = (totalPrice, offerPrice = 0) => {
 
 const reduce = (state, action) => {
   switch (action.type) {
+    case "SET_PRODUCTS":
+      state.allProducts = action.payload;
+      return {
+        ...state
+      };
     case "ADD_TO_BASKET": {
       const hasProduct = state.basket.some(
-        (product) => product.id === action.payload
+        (product) => product._id === action.payload
       );
       if (!hasProduct) {
         const mainItem = state.allProducts.find(
-          (product) => product.id === action.payload
+          (product) => product._id === action.payload
         );
         mainItem.count = 1
         state.basket.push(mainItem);
@@ -79,11 +86,11 @@ const reduce = (state, action) => {
     }
     case "REMOVE_FROM_BASKET": {
       const indexDelete = state.basket.findIndex(
-        (product) => product.id === action.payload
+        (product) => product._id === action.payload
       );
       state.basket[indexDelete].count = 1;
       state.basket = state.basket.filter(
-        (product) => product.id !== action.payload
+        (product) => product._id !== action.payload
       );
 
       setItemFunc(state.basket)
@@ -95,7 +102,7 @@ const reduce = (state, action) => {
     }
     case "INCREASE": {
       const indexPlus = state.basket.findIndex(
-        (product) => product.id === action.payload
+        (product) => product._id === action.payload
       );
       state.basket[indexPlus].count++;
       
@@ -108,7 +115,7 @@ const reduce = (state, action) => {
     }
     case "DECREASE": {
       const indexMinus = state.basket.findIndex(
-        (product) => product.id === action.payload
+        (product) => product._id === action.payload
       );
       if (state.basket[indexMinus].count > 1) {
         state.basket[indexMinus].count--;
@@ -155,6 +162,12 @@ const reduce = (state, action) => {
         ...state,
       };
     }
+    case "PAYMENT_RECEIVED": {
+      state.paymentReceived = action.payload
+      return {
+        ...state,
+      };
+    }
     default:
       return state;
   }
@@ -165,6 +178,17 @@ export const ProductDispath = createContext();
 
 export default function ContextProvider({ children }) {
   const [state, dispath] = useReducer(reduce, initialState);
+
+  // const getProducts = async() => {
+  //   let p = await GetProductsAPI()
+  //   console.log("get products: ", p.status)
+  //   if (p.data.message) dispath({ type: "SET_PRODUCTS", payload: p.data.message })
+  // }
+  
+  // useEffect(() => {
+  //   getProducts()
+  // }, [])
+
   return (
     <ProductContext.Provider value={{ state }}>
       <ProductDispath.Provider value={{ dispath }}>

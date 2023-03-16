@@ -1,6 +1,8 @@
+import { GetProductsAPI } from "./api/getProducts"
+
 let allProducts = [
   {
-      id: 1,
+      _id: 1,
       title: 'Flash Drive - Vermont',
       image: 'images/usb_vermont.png',
       price: 10000,
@@ -11,11 +13,11 @@ let allProducts = [
       xlQty: 0,
       xxlQty: 0,
       xxxlQty: 0,
-      totalQty: 60,
+      totalQty: 0,
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 2,
+      _id: 2,
       title: 'Flash Drive - Noomer',
       image: 'images/usb_noomer.png',
       price: 10000,
@@ -30,7 +32,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 3,
+      _id: 3,
       title: 'Flash Drive - Dailai',
       image: 'images/usb_dailai.png',
       price: 13000,
@@ -45,7 +47,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 4,
+      _id: 4,
       title: 'Flash Drive - Woodcoin',
       image: 'images/usb_woodcoin.png',
       price: 15000,
@@ -60,7 +62,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 5,
+      _id: 5,
       title: 'Cap - Dailai',
       image: 'images/cap_dailai.png',
       price: 12500,
@@ -75,7 +77,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 6,
+      _id: 6,
       title: 'Cap - Woodcoin',
       image: 'images/cap_woodcoin.png',
       price: 8500,
@@ -90,7 +92,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 7,
+      _id: 7,
       title: 'Cap - Dailai',
       image: 'images/cap_dailai_side.png',
       price: 12000,
@@ -105,7 +107,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 8,
+      _id: 8,
       title: 'Cap - Vermont',
       image: 'images/cap_vermont.png',
       price: 8000,
@@ -120,7 +122,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 9,
+      _id: 9,
       title: 'Tshirt - Vermont white',
       image: 'images/tshirt_vermont_w.png',
       price: 4000,
@@ -135,7 +137,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 10,
+      _id: 10,
       title: 'Tshirt - Noomer black',
       image: 'images/tshirt_noomer_b.png',
       price: 4000,
@@ -150,7 +152,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 11,
+      _id: 11,
       title: 'Tshirt - Dailai black',
       image: 'images/tshirt_dailai_b.png',
       price: 4000,
@@ -165,7 +167,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 12,
+      _id: 12,
       title: 'Tshirt - Woodcoin white',
       image: 'images/tshirt_woodcoin_w.png',
       price: 4000,
@@ -180,7 +182,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 13,
+      _id: 13,
       title: 'Tshirt - Dailai white',
       image: 'images/tshirt_dailai_w.png',
       price: 4000,
@@ -195,7 +197,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 14,
+      _id: 14,
       title: 'Tshirt - Noomer white',
       image: 'images/tshirt_noomer_w.png',
       price: 4000,
@@ -210,7 +212,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 15,
+      _id: 15,
       title: 'Mug - Vermont',
       image: 'images/mug_vermont.png',
       price: 4000,
@@ -225,7 +227,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 16,
+      _id: 16,
       title: 'Mug - Dailai',
       image: 'images/mug_dailai.png',
       price: 4000,
@@ -240,7 +242,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 17,
+      _id: 17,
       title: 'Mug - Noomer',
       image: 'images/mug_noomer.png',
       price: 4000,
@@ -255,7 +257,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 18,
+      _id: 18,
       title: 'Mug - Woodcoin',
       image: 'images/mug_woodcoin.png',
       price: 4000,
@@ -270,7 +272,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 19,
+      _id: 19,
       title: 'Tumbler - Noomer',
       image: 'images/tumbler_noomer.png',
       price: 4000,
@@ -285,7 +287,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 20,
+      _id: 20,
       title: 'Tumbler - Vermont',
       image: 'images/tumbler_vermont.png',
       price: 4000,
@@ -300,7 +302,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 21,
+      _id: 21,
       title: 'Tumbler - Woodcoin',
       image: 'images/tumbler_woodcoin.png',
       price: 4000,
@@ -315,7 +317,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 22,
+      _id: 22,
       title: 'Tumbler - Dailai',
       image: 'images/tumbler_dailai.png',
       price: 4000,
@@ -330,7 +332,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 23,
+      _id: 23,
       title: 'Pillow - Vermont',
       image: 'images/pillow_vermont.png',
       price: 4000,
@@ -345,7 +347,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 24,
+      _id: 24,
       title: 'Pillow - Noomer',
       image: 'images/pillow_noomer.png',
       price: 4000,
@@ -360,7 +362,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 25,
+      _id: 25,
       title: 'Pillow - Dailai',
       image: 'images/pillow_dailai.png',
       price: 4000,
@@ -375,7 +377,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 26,
+      _id: 26,
       title: 'Pillow - Woodcoin',
       image: 'images/pillow_woodcoin.png',
       price: 4000,
@@ -390,7 +392,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 27,
+      _id: 27,
       title: 'Tote bag - Woodcoin',
       image: 'images/bag_woodcoin.png',
       price: 4000,
@@ -405,7 +407,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 28,
+      _id: 28,
       title: 'Tote bag - Vermont',
       image: 'images/bag_vermont.png',
       price: 4000,
@@ -420,7 +422,7 @@ let allProducts = [
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   },
   {
-      id: 29,
+      _id: 29,
       title: 'Tote bag - Noomer',
       image: 'images/bag_noomer.png',
       price: 4000,
@@ -431,9 +433,17 @@ let allProducts = [
       xlQty: 0,
       xxlQty: 0,
       xxxlQty: 0,
-      totalQty: 60,
+      totalQty: 5,
       description: "<p>Material: 100% Cotton</p><p>Stand Collar Fit Type: Regular</p><p>Thickness: Standard</p><p>Color: White,Sky Blue,Black</p><p>Size: S,M,L,XL,2XL,3XL </p><p>Occasion: Casual, Fashion, Vintage</p><p>Season: Summer</p><p>Product Description: Mens Chinese Style 100% Cotton Solid Color Stand Collar Vintage Casual Summer T Shirts Package included: 1*T-Shirt Please Note:Please see the Size Reference to find the correct size.</p>"
   }
 ]
+
+// const getProducts = async() => {
+//     let p = await GetProductsAPI()
+//     console.log("p: ", p.status)
+//     return p.data.message
+// }
+
+// const allProducts = GetProductsAPI()
 
 export default allProducts

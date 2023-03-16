@@ -1,5 +1,8 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import allProducts from "../../Data";
+import { GetProductsAPI } from "../../api/getProducts"
+
+
 
 const initialFilterState = {
   filteredItems: [...allProducts],
@@ -18,6 +21,11 @@ const filterReduce = (state, action) => {
   switch (action.type) {
     case "SEARCH_KEYWORD":
       state.searchKey = action.payload;
+      return {
+        ...state
+      };
+    case "SET_PRODUCTS":
+      state.filteredItems = action.payload;
       return {
         ...state
       };
@@ -64,6 +72,18 @@ export const FilterDispath = createContext();
 
 export default function ContextFilter({ children }) {
   const [state, dispath] = useReducer(filterReduce, initialFilterState);
+
+  // const getProducts = async() => {
+  //   let p = await GetProductsAPI()
+  //   console.log("filter get products: ", p.data.message)
+  //   if (p.data.message) dispath({ type: "SET_PRODUCTS", payload: p.data.message })
+  // }
+  
+  // useEffect(() => {
+  //   getProducts()
+  // }, [])
+  
+
   return (
     <FilterContext.Provider value={{ state }}>
       <FilterDispath.Provider value={{ dispath }}>

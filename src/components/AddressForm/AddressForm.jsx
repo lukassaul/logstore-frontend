@@ -11,10 +11,11 @@ export default function Form() {
   const { dispath } = useContext(ProductDispath);
   const { state } = useContext(ProductContext);
 
-  const [ step, setStep ] = useState(1)
+  const [ step, setStep ] = useState(2)
   const [copied, setCopied] = useState(false)
   const [timerEnd, setTimerEnd] = useState(false);
-  const [countdownDate, setCountdownDate] = useState(Date.now() + 1200000)
+  //const [countdownDate, setCountdownDate] = useState(Date.now() + 1200000)
+  const [k, setK] = useState(false);
 
   const [ contactNumber, setContactNumber ] = useState()
   const [ contactNumberErrMsg, setContactNumberErrMsg ] = useState()
@@ -246,12 +247,16 @@ export default function Form() {
     } else {
         // Render a countdown
         return (
-        <span className="font-face-digital fs-25 yellowFont">
+        <span className="font-face-digital fs-25 yellowFont  mv2h1">
             {minutes}:{seconds}
         </span>
         );
     }
   };
+
+  const restartTimer = () => {
+    setK((i) => !i);
+  }
 
   function generateAddress() {
     try {
@@ -274,12 +279,6 @@ export default function Form() {
   useEffect(() => {
     //generateAddress()
   }, [])
-
-
-  const ResetCountdown = () => {
-      setCountdownDate(Date.now() + 1200000)
-      setTimerEnd(false)
-  }
   
   return (
     <>
@@ -392,13 +391,13 @@ export default function Form() {
         }
         {step===2 ?
           <>
-            {!timerEnd ?
-              <>
-                <div className="fcentercol">
-                    <Countdown date={countdownDate} renderer={renderer} />
-                    <p className="text-center word-wrap mt1">Send woodcoin before timer ends</p>
-                </div>
-                <div className="fcentercol">
+            {!timerEnd && !state.paymentReceived ?
+              <div className='fcentercolai' style={{opacity: timerEnd ? "0" : "1", transition: "all .2s"}}>
+                
+                <Countdown key={k} date={Date.now() + 5000} renderer={renderer} />
+                <p className="text-center word-wrap fs-2">Send woodcoin before timer ends</p>
+                
+                <div className="fcentercol mt1">
                     <div style={{ height: "auto", margin: "0 auto", maxWidth: 128, width: "100%" }}>
                       <QRCode
                         size={256}
@@ -407,7 +406,7 @@ export default function Form() {
                         viewBox={`0 0 256 256`}
                       />
                     </div>
-                    <p className="font-bold mb0 tactr">Log Address</p>
+                    <p className="font-bold mb0 tactr mt1">Log Address</p>
                     <p 
                         className="fs12px pointer mb0 greenFont pointer tactr" 
                         style={{marginBottom: '0 !important'}} 
@@ -419,9 +418,18 @@ export default function Form() {
                         {copied ? <span className="font-success fs12px">LOG address copied</span> : null}
                     </div>
                 </div>
-              </>
+              </div>
               :
-              null 
+              <div className='fcentercolai animateSection'>
+                <span className="font-face-digital fs-25 yellowFont mv2h1">0:00</span>
+
+                <p className="text-center word-wrap fs-2">Still want to continue?</p>
+                <img src="/images/timerExpired.png" width='152px' height='auto'/>
+                <p className="text-center word-wrap fs-1 mb1">Click reset timer if you want to repeat the payment time.</p>
+                <div className="mv3h0">
+                    <button onClick={() => restartTimer()} className="primary-button-nw">Reset timer</button>
+                </div> 
+              </div>
             }
             
           </>
