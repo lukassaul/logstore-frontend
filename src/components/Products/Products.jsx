@@ -8,6 +8,9 @@ import Footer from "../Footer/Footer";
 export default function Products() {
   const { state } = useContext(FilterContext);
 
+  //console.log("provider: ", state.allProducts)
+  console.log("filteredItems: ", state.filteredItems)
+
   const productsList = state.filteredItems.filter((product) => {
     if(state.searchKey)
       return product.title.toLowerCase().includes(state.searchKey.toLowerCase()) || !state.searchKey;
@@ -25,13 +28,13 @@ export default function Products() {
       
         {productsList.length > 0 ? (
           <div className="product_container">
-            {productsList.map((product) => <Card key={product.id} {...product} />)}
+            {productsList.map((product) => <Card key={product._id} {...product} />)}
           </div>
         ) : (
           <div className="fcentercol mh60">
             <img
               className="products_empty_img"
-              src="images/bare-tree.png"
+              src="images/no-products.gif"
               alt=""
             />
             <span className="products_empty_title">

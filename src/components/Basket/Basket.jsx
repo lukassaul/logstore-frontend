@@ -26,6 +26,8 @@ export default function Basket() {
   //   console.log('message from server: ', event.data)
   // })
 
+  console.log("state basket: ", state.basket)
+
   return (
     <>
       <div className="favorite_container_linkBar">
@@ -51,7 +53,7 @@ export default function Basket() {
         <div className="basket_container">
           <div className="basket_itemBox">
             {state.basket.map((product) => (
-              <BasketItem key={product.id} {...product} />
+              <BasketItem key={product._id} {...product} />
             ))}
           </div>
           <div className="basket_priceBox">
@@ -92,7 +94,7 @@ export default function Basket() {
         <div className="favorite_empty">
           <img
             className="favorite_empty_img"
-            src="images/empty-basket.png"
+            src="images/empty-basket.gif"
             alt=""
           />
           <span className="favorite_empty_title">The shopping cart is empty</span>

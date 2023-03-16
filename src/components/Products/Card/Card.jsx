@@ -9,12 +9,13 @@ export default function Card(props) {
   const { dispath } = useContext(ProductDispath);
   const { state } = useContext(ProductContext);
 
-  const datas = state.allProducts.find((product) => product.id === props.id);
-  const checkBasket = state.basket.some((product) => product.id === props.id);
+  const datas = state.allProducts.find((product) => product._id === props._id);
+  const checkBasket = state.basket.some((product) => product._id === props._id);
+  const countItem = state.basket.find((product) => product._id === props._id);
 
   return (
-    <div key={props.id} className="box">
-      <Link to={`/${props.id}`}>
+    <div key={props._id} className="box">
+      <Link to={`/${props._id}`}>
         <img className="product_img" src={props.image} alt="product" />
         <div className="content">
           <div className="title">
@@ -26,10 +27,14 @@ export default function Card(props) {
         </div>
       </Link>
       {checkBasket ? (
-        <Buttons {...datas} />
+        <>
+          <Buttons {...datas} />
+          {datas.totalQty === countItem.count ? <p className="errFont fs-12px">Available stock: {datas.totalQty}</p> : null}
+          {datas.totalQty === 0 ? <p className="errFont fs-12px">Sold out</p> : null}
+        </>
       ) : (
         <button
-          onClick={() => dispath({ type: "ADD_TO_BASKET", payload: props.id })}
+          onClick={() => dispath({ type: "ADD_TO_BASKET", payload: props._id })}
           className="products_button buy_button"
         >
           Buy

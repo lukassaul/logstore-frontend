@@ -4,14 +4,27 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { ProductContext, ProductDispath } from "../Context/ContextProvider";
 
 export default function Buttons(props) {
+  console.log("button props: ", props)
   const { dispath } = useContext(ProductDispath);
   const { state } = useContext(ProductContext);
-  const { id } = props;
-  const countItem = state.basket.find((product) => product.id === id);
+  const { _id, totalQty } = props;
+  const countItem = state.basket.find((product) => product._id === _id);
+
+  /*
+    Checks the item count in the basket if against the
+    available stock of the product selected
+    If the available stock is greater than the product item count,
+    increase the product count
+    If not, do not let the user to increase product quantity
+  */
+  const checkProductCount = () => {
+    if(totalQty > countItem.count) dispath({ type: "INCREASE", payload: _id })
+  }
+
   return (
     <div className="basket_buttons">
       <span
-        onClick={() => dispath({ type: "INCREASE", payload: id })}
+        onClick={() => checkProductCount()}
         className="basket_plus"
       >
         <AiOutlinePlus />
@@ -19,14 +32,14 @@ export default function Buttons(props) {
       <span className="counter_number">{countItem.count}</span>
       {countItem.count === 1 ? (
         <span
-          onClick={() => dispath({ type: "REMOVE_FROM_BASKET", payload: id })}
+          onClick={() => dispath({ type: "REMOVE_FROM_BASKET", payload: _id })}
           className="basket_minus"
         >
           <RiDeleteBinLine />
         </span>
       ) : (
         <span
-          onClick={() => dispath({ type: "DECREASE", payload: id })}
+          onClick={() => dispath({ type: "DECREASE", payload: _id })}
           className="basket_minus"
         >
           <AiOutlineMinus />
