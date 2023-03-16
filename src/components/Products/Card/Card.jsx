@@ -13,6 +13,8 @@ export default function Card(props) {
   const checkBasket = state.basket.some((product) => product._id === props._id);
   const countItem = state.basket.find((product) => product._id === props._id);
 
+  // console.log("state.allProducts: ", state.allProducts)
+  // console.log("card datas: ", datas)
   return (
     <div key={props._id} className="box">
       <Link to={`/${props._id}`}>

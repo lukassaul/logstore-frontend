@@ -1,21 +1,34 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Filter from "./Filter/Filter";
-import { FilterContext } from "../Context/ContextFilter";
+import { FilterContext, FilterDispath } from "../Context/ContextFilter";
 import Card from "./Card/Card";
 import SearchBar from "../SearchBar/SearchBar";
 import Footer from "../Footer/Footer";
 
+import { GetProductsAPI } from "../../api/getProducts";
+
 export default function Products() {
   const { state } = useContext(FilterContext);
+  const { dispath } = useContext(FilterDispath)
 
-  //console.log("provider: ", state.allProducts)
-  console.log("filteredItems: ", state.filteredItems)
+  const getProducts = async() => {
+    if(state.filteredItems.length === 0) {
+      let p = await GetProductsAPI()
+      if (p.status === 200) dispath({ type: "SET_PRODUCTS", payload: p.data.message })
+    }
+  }
 
+  useEffect(() => {
+    getProducts()
+  }, [])
+  
   const productsList = state.filteredItems.filter((product) => {
     if(state.searchKey)
       return product.title.toLowerCase().includes(state.searchKey.toLowerCase()) || !state.searchKey;
     else return product.title.includes(state.searchKey) || !state.searchKey;
   });
+
+  
 
   return (
     <>
