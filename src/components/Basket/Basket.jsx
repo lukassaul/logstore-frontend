@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import useWebSocket, { ReadyState } from 'react-use-websocket';
-//import WebSocket from 'ws';
 
 import { HiArrowRight } from "react-icons/hi";
 import { ProductContext, ProductDispath } from "../Context/ContextProvider";
@@ -9,22 +7,13 @@ import BasketItem from "./BasketItem";
 import Offer from "./Offer";
 import OfferBadge from "./OfferBadge";
 import SendProducts from "./SendProducts";
+import { PostUnlockProductAPI } from "../../api/unlockProduct";
 
 
 export default function Basket() {
   const { state } = useContext(ProductContext);
   const { dispath } = useContext(ProductDispath);
   const navigate = useNavigate()
-
-  // const socket = new WebSocket('wss://twigchain.com:4000/payment?address=WfyjGnu2i7xR5oiPMxb7rSE5WwcKD5btzD')
-
-  // socket.addEventListener('open', function(event){
-  //   console.log('connected to ws server')
-  // })
-
-  // socket.addEventListener('message', function(event){
-  //   console.log('message from server: ', event.data)
-  // })
 
   console.log("state basket: ", state.basket)
 
@@ -43,7 +32,7 @@ export default function Basket() {
             <div className="free_send_title">
               <img src="images/sound(1).jpg" alt="" />
               <span>
-                Shipping is free for purchases over 1000 USD.
+                Shipping is free for purchases over 1000 LOG.
               </span>
             </div>
           </div>
@@ -65,13 +54,13 @@ export default function Basket() {
             {state.totalPriceAfterOffer > 0 && (
               <div className="basket_offer">
                 <span>Discounted Price</span>
-                <span>{state.totalPriceAfterOffer.toLocaleString()} USD</span>
+                <span>{state.totalPriceAfterOffer.toLocaleString()} LOG</span>
               </div>
             )}
             <SendProducts />
             <div className="basket_send">
               <span>Total amount payable</span>
-              <span>{state.totalPriceFinal.toLocaleString()} USD</span>
+              <span>{state.totalPriceFinal.toLocaleString()} LOG</span>
             </div>
 
             <button 
@@ -82,7 +71,17 @@ export default function Basket() {
             </button>
 
             <button
-              onClick={() => dispath({ type: "EMPTY_BASKET" })}
+              onClick={() => {
+                dispath({ type: "EMPTY_BASKET" })
+                let data = state.basket.map(item => {
+                  return { productId: item._id, size: item.size, quantity: item.count}
+                })
+                try {
+                  PostUnlockProductAPI({product: data})
+                }catch(e) {
+                  console.log("error posting unlock product: ", e)
+                }
+              }}
               className="basket_button_remove"
             >
               Remove {state.basket.length} item from the shopping cart

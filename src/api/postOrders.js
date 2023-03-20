@@ -1,29 +1,30 @@
 import axios from 'axios';
 
-export const GetProductsAPI = async () => {
-    const url = `${process.env.REACT_APP_BASE_URL}/products`
+export const PostOrdersAPI = async (data) => {
+    const url = `${process.env.REACT_APP_BASE_URL}/orders`
     try {
       return axios({
-        method: 'GET',
+        method: 'POST',
         url: url,
         headers: {
           'Content-Type': 'application/json',
         },
+        data
       })
         .then(res => res)
         .catch(err =>
           {if (err.response) {
               return err.response
             } else if (err.request) {
-              console.log("get products axios request", err)
+              console.log("post orders axios request", err)
             } else {
-              console.log("get products axios error something else", err.request)
+              console.log("post orders axios error something else", err.request)
             }
           }
         )
     } catch (error) {
       if (error.response) {
-        console.log("get products response error catch: ", error.response)
+        console.log("post orders response error catch: ", error.response)
       }
     }
 }

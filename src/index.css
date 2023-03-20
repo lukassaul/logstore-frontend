@@ -9,6 +9,7 @@
   --success-hsl: 100, 60%, 50%;
   --error-hsl: 0, 60%, 50%;
   --yellow-background: #D48712;
+  --red-background: #dc3545b5;
   --yellow: #F9BF29;
   --green: #70908B;
 }
@@ -376,6 +377,10 @@ body {
 
 .buy_button {
   background-color: var(--primary-color-3);
+}
+
+.soldout_button {
+  background-color: var(--red-background);
 }
 
 .add_button {
@@ -1368,6 +1373,13 @@ body {
   flex-direction: column;
   gap: 20px;
   padding: 70px 16px;
+  justify-content: center;
+}
+
+@media screen and (max-width: 720px) {
+  .checkout_container {
+    justify-content: center;
+  }
 }
 /**
   End of Checkout css
@@ -1381,6 +1393,10 @@ body {
 }
 .mt1 {
   margin-top: 1em;
+}
+
+.mt2 {
+  margin-top: 2em;
 }
 
 .mb1 {

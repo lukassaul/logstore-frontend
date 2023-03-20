@@ -20,8 +20,8 @@ export default function BasketItem(props) {
   }, [])
 
   const product = state.allProducts.find((product) => product._id === props._id);
-  console.log("basketItem props id: ", props)
-  console.log("basketItem prod: ", product)
+  // console.log("basketItem props id: ", props)
+  // console.log("basketItem prod: ", product)
   return (
     <>
       <div className="basket_item">
@@ -31,7 +31,7 @@ export default function BasketItem(props) {
           </div>
           <div className="basket_content">
             <span className="basket_title">{props.title}</span>
-            <span>{(props.price * props.count).toLocaleString()} USD</span>
+            <span>{(props.price * props.count).toLocaleString()} LOG</span>
           </div>
         </Link>
         <div className="basket_counter">

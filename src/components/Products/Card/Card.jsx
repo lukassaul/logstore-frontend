@@ -4,6 +4,7 @@ import Interest from "./Interest";
 import { Link } from "react-router-dom";
 import { ProductContext, ProductDispath } from "../../Context/ContextProvider";
 import Buttons from "../../Buttons/Buttons";
+import { PostLockProductAPI } from "../../../api/lockProduct";
 
 export default function Card(props) {
   const { dispath } = useContext(ProductDispath);
@@ -15,6 +16,7 @@ export default function Card(props) {
 
   // console.log("state.allProducts: ", state.allProducts)
   // console.log("card datas: ", datas)
+
   return (
     <div key={props._id} className="box">
       <Link to={`/${props._id}`}>
@@ -24,7 +26,7 @@ export default function Card(props) {
             <span>{props.title}</span>
           </div>
           <div className="price">
-            <span>{props.price.toLocaleString()} USD</span>
+            <span>{props.price.toLocaleString()} LOG</span>
           </div>
         </div>
       </Link>
@@ -35,13 +37,36 @@ export default function Card(props) {
           {datas.totalQty === 0 ? <p className="errFont fs-12px">Sold out</p> : null}
         </>
       ) : (
-        <button
-          onClick={() => dispath({ type: "ADD_TO_BASKET", payload: props._id })}
-          className="products_button buy_button"
-        >
-          Buy
-          <FiShoppingCart className="buy_icon" />
-        </button>
+        <>
+        {datas.totalQty > 0 ?
+          <button
+            onClick={() => {
+              dispath({ type: "ADD_TO_BASKET", payload: props._id })
+              let lockData = [{
+                productId: props._id,
+                size: null,
+                quantity: 1
+              }]
+              try {
+                PostLockProductAPI({product: lockData})
+              }catch(e) {
+                console.log("Error in locking item")
+              }
+            }}
+            className="products_button buy_button"
+          >
+            Buy
+            <FiShoppingCart className="buy_icon" />
+          </button>
+          :
+          <button
+            className="products_button soldout_button"
+            disabled
+          >
+            Sold out
+          </button>
+        }
+        </>
       )}
     </div>
   );

@@ -21,7 +21,9 @@ const initialState = {
   isEnterOfferCode: false,
   offerMessage: "",
   shippingAddress: {},
-  paymentReceived: false
+  paymentReceived: false,
+  paymentError: false,
+  sendingOrder: false
 };
 
 const sumPrice = (items, isOffer) => {
@@ -168,6 +170,18 @@ const reduce = (state, action) => {
         ...state,
       };
     }
+    case "PAYMENT_ERROR": {
+      state.paymentError = action.payload
+      return {
+        ...state,
+      };
+    }
+    case "SENDING_ORDER": {
+      state.sendingOrder = action.payload
+      return {
+        ...state,
+      };
+    }
     default:
       return state;
   }
@@ -181,7 +195,6 @@ export default function ContextProvider({ children }) {
 
   const getProducts = async() => {
     let p = await GetProductsAPI()
-    console.log("get products: ", p.status)
     if (p.data.message) dispath({ type: "SET_PRODUCTS", payload: p.data.message })
   }
   

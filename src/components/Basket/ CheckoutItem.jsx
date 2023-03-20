@@ -10,7 +10,7 @@ export default function CheckoutItem(props) {
         </div>
         <div className="basket_content">
           <span className="basket_title">{props.title}</span>
-          <span>{(props.price * props.count).toLocaleString()} USD</span>
+          <span>{(props.price * props.count).toLocaleString()} LOG</span>
           <span className="smText">Quantity: {props.count}</span>
         </div>
       </Link>

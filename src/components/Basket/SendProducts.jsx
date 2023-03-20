@@ -11,7 +11,7 @@ export default function SendProducts() {
         <span>Shipping Cost</span>
         <span>
           {state.totalPrice - state.offerPrice <= 100_000
-            ? `${sendPrice.toLocaleString()} USD`
+            ? `${sendPrice.toLocaleString()} LOG`
             : "Free"}
         </span>
       </div>
