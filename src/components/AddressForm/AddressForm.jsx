@@ -4,41 +4,45 @@ import QRCode from 'react-qr-code';
 import Countdown from 'react-countdown';
 import InputField from './InputField';
 import { ProductContext, ProductDispath } from '../Context/ContextProvider';
+import { PostOrdersAPI } from '../../api/postOrders';
 
 
-export default function Form() {
+export default function Form(props) {
   const navigate = useNavigate()
   const { dispath } = useContext(ProductDispath);
   const { state } = useContext(ProductContext);
 
-  const [ step, setStep ] = useState(2)
+  const [ step, setStep ] = useState(1)
   const [copied, setCopied] = useState(false)
   const [timerEnd, setTimerEnd] = useState(false);
   //const [countdownDate, setCountdownDate] = useState(Date.now() + 1200000)
   const [k, setK] = useState(false);
 
-  const [ contactNumber, setContactNumber ] = useState()
+  const [ logAddress, setLogAddress ] = useState()
+  const [ contactNumber, setContactNumber ] = useState(state.shippingAddress.contact_number ? state.shippingAddress.contact_number : null)
   const [ contactNumberErrMsg, setContactNumberErrMsg ] = useState()
-  const [ email, setEmail ] = useState()
+  const [ email, setEmail ] = useState(state.shippingAddress.email ? state.shippingAddress.email : null)
   const [ emailErrMsg, setEmailErrMsg ] = useState()
-  const [ firstName, setFirstName ] = useState()
+  const [ firstName, setFirstName ] = useState(state.shippingAddress.first_name ? state.shippingAddress.first_name : null)
   const [ firstNameErrMsg, setFirstNameErrMsg ] = useState()
-  const [ lastName, setLastName ] = useState()
+  const [ lastName, setLastName ] = useState(state.shippingAddress.last_name ? state.shippingAddress.last_name : null)
   const [ lastNameErrMsg, setLastNameErrMsg ] = useState()
-  const [ country, setCountry ] = useState()
+  const [ country, setCountry ] = useState(state.shippingAddress.country ? state.shippingAddress.country : null)
   const [ countryErrMsg, setCountryErrMsg ] = useState()
-  const [ streetAddress, setStreetAddress ] = useState()
+  const [ streetAddress, setStreetAddress ] = useState(state.shippingAddress.street_address ? state.shippingAddress.street_address : null)
   const [ streetAddressErrMsg, setStreetAddressErrMsg ] = useState()
-  const [ aptOther, setAptOther ] = useState()
+  const [ aptOthers, setAptOther ] = useState(state.shippingAddress.apt_other ? state.shippingAddress.apt_other : null)
   const [ aptOtherErrMsg, setAptOtherErrMsg ] = useState()
-  const [ city, setCity ] = useState()
+  const [ city, setCity ] = useState(state.shippingAddress.city ? state.shippingAddress.city : null)
   const [ cityErrMsg, setCityErrMsg ] = useState()
-  const [ stateUs, setStateUs ] = useState()
+  const [ stateUs, setStateUs ] = useState(state.shippingAddress.stateUs ? state.shippingAddress.stateUs : null)
   const [ stateErrMsg, setStateErrMsg ] = useState()
-  const [ postalCode, setPostalCode ] = useState()
+  const [ postalCode, setPostalCode ] = useState(state.shippingAddress.postal_code ? state.shippingAddress.postal_code : null)
   const [ postalCodeErrMsg, setPostalCodeErrMsg ] = useState()
-  const [ province, setProvince ] = useState()
+  const [ province, setProvince ] = useState(state.shippingAddress.province ? state.shippingAddress.province : null)
   const [ provinceErrMsg, setProvinceErrMsg ] = useState()
+  const [ txid, setTxid ] = useState()
+  const [ paymentError, setPaymentError ] = useState()
 
   const onSubmit = () => {
     console.log("contact number: ", contactNumber)
@@ -47,7 +51,7 @@ export default function Form() {
     console.log("lastName: ", lastName)
     console.log("country: ", country)
     console.log("streetAddress: ", streetAddress)
-    console.log("aptOther: ", aptOther)
+    console.log("aptOther: ", aptOthers)
     console.log("city: ", city)
     console.log("stateUs: ", stateUs)
     console.log("postalCode: ", postalCode)
@@ -66,7 +70,7 @@ export default function Form() {
       "last_name": lastName,
       "country": country,
       "street_address": streetAddress,
-      "apt_other": aptOther,
+      "apt_other": aptOthers,
       "city": city,
       "state": stateUs,
       "postal_code": postalCode,
@@ -186,7 +190,7 @@ export default function Form() {
       setStreetAddressErrMsg("Street address must not exceed 100 characters.")
       isValid = false
     }
-    if (aptOther && aptOther.length > 100) {
+    if (aptOthers && aptOthers.length > 100) {
       setAptOtherErrMsg("Apt/Suite/Other must not exceed 100 characters.")
       isValid = false
     }
@@ -259,17 +263,19 @@ export default function Form() {
   }
 
   function generateAddress() {
-    try {
-        var hd = window.coinjs.hd(process.env.REACT_APP_XPUB)
-        let x = Math.random() * 100;
-        const INDEX = Math.floor(x)
+    setLogAddress('WZa4qaL4AAJJVwqHW8AMNhRNLDAXfBHKtq')
+    // try {
+    //     var hd = window.coinjs.hd(process.env.REACT_APP_XPUB)
+    //     let x = Math.random() * 100;
+    //     const INDEX = Math.floor(x)
 
-        var address = hd.derive(INDEX)
-        console.log("generated address: ", address)
+    //     var address = hd.derive(INDEX)
+    //     console.log("generated address: ", address)
+    //     setLogAddress(address)
         
-    }catch(e) {
-        console.log("ERROR")
-    }
+    // }catch(e) {
+    //     console.log("ERROR")
+    // }
   }
 
   function isEmptyObject(obj){
@@ -277,8 +283,114 @@ export default function Form() {
   }
 
   useEffect(() => {
-    //generateAddress()
-  }, [])
+    if (step === 2) generateAddress()
+  }, [step])
+
+  var socket;
+  // console.log("basket: ", state.basket.map(item => {
+  //   return { productID: item._id, quantity: item.count}
+  // }))
+  function SocketController() {
+      
+      socket = new WebSocket(`wss://twigchain.com:4000?address=${logAddress}`)
+
+      socket.addEventListener('open', function(event){
+          console.log('connected to ws server')
+      })
+
+      socket.addEventListener('message', async function(event){
+          console.log('message from server: ', event.data)
+          if(event.data !== "something") {
+              var response = JSON.parse(event.data)
+              if(response.txid && response.amount >= state.totalPriceFinal ) {
+
+                  var txid = response.txid
+                  let orderData = {
+                    address: {
+                      contactNumber: state.shippingAddress.contact_number,
+                      email: state.shippingAddress.email,
+                      firstName: state.shippingAddress.first_name,
+                      lastName: state.shippingAddress.last_name,
+                      country: state.shippingAddress.country,
+                      streetAddress: state.shippingAddress.street_address,
+                      city: state.shippingAddress.city,
+                      aptOthers: state.shippingAddress.apt_other,
+                      state: state.shippingAddress.state,
+                      postalCode: state.shippingAddress.postal_code,
+                      province: state.shippingAddress.province
+                    },
+                    DEPOSITLOGADDRESS: logAddress,
+                    logTXID: txid,
+                    products: state.basket.map(item => {
+                      return { item: item._id, quantity: item.count}
+                    }),
+                    totalPrice: state.totalPriceFinal
+                  }
+
+                  /*
+                    Make a post request to the backend server
+                  */
+                  setTxid(txid)
+                  setStep(2)
+                  // Close socket connection
+                  closeSocket()
+                  let sendOrder = await PostOrdersAPI(orderData)
+                  dispath({ type: "SENDING_ORDER", payload: true })
+                  console.log("sendOrder: ", sendOrder)
+                  if (sendOrder.status = 200 && !sendOrder.data.error) {
+
+                    props.setOrderId(sendOrder.data.details._id)
+                    dispath({ type: "PAYMENT_RECEIVED", payload: true})
+                    dispath({ type: "SENDING_ORDER", payload: false })
+                    dispath({ type: "EMPTY_BASKET" })
+                  }
+                  /**
+                   * If there is an error, notify user that the payment was received
+                   * and is being processed by the admin
+                   * send an email for the order id 
+                  */
+                  if (sendOrder.data.message === "You have sent an amount less than to the total price. Sorry be we don't offer refund.") {
+                    dispath({ type: "PAYMENT_RECEIVED", payload: true})
+                    dispath({ type: "PAYMENT_ERROR", payload: true})
+                  }
+              } else {
+                  console.log("LOG received is below minimum swap amount")
+                  setPaymentError("The received payment (LOG) is below your order/'s total amount. Sorry, we don't do a refund.")
+                  dispath({ type: "PAYMENT_RECEIVED", payload: true})
+                  dispath({ type: "PAYMENT_ERROR", payload: true})
+                  //setCountdownDate(Date.now())
+                  setTimerEnd(true)
+                  closeSocket()
+              }
+          }
+      })
+
+      socket.addEventListener('close', function(event){
+          console.log('Closing websocket')
+      })
+      
+  }
+
+  function closeSocket() {
+      console.log("close socket function: ", socket)
+      if(socket && socket.readyState !== 0) {
+          socket.close()
+          console.log("socket state after close: ", socket.readyState)
+      }
+  }
+
+  useEffect(() => {
+    console.log("log address useEffect")
+    if(!socket && step === 2) {
+        console.log("should call socketController")
+        SocketController()
+    }
+
+    return () => {
+        console.log("leaving the page")
+        closeSocket()
+    }
+  }, [logAddress])
   
   return (
     <>
@@ -290,6 +402,7 @@ export default function Form() {
                 type="text"
                 label="Contact number*"
                 name="contactNumber"
+                value={contactNumber}
                 handleChange={handleChange}
                 errMsg={contactNumberErrMsg}
               />
@@ -297,6 +410,7 @@ export default function Form() {
                 type="email"
                 label="Email"
                 name="email"
+                value={email}
                 handleChange={handleChange}
                 errMsg={emailErrMsg}
               />
@@ -307,6 +421,7 @@ export default function Form() {
                 type="text"
                 label="First name*"
                 name="firstName"
+                value={firstName}
                 handleChange={handleChange}
                 errMsg={firstNameErrMsg}
               />
@@ -315,6 +430,7 @@ export default function Form() {
                 type="text"
                 label="Last name*"
                 name="lastName"
+                value={lastName}
                 handleChange={handleChange}
                 errMsg={lastNameErrMsg}
               />
@@ -323,6 +439,7 @@ export default function Form() {
                 type="text"
                 label="Country*"
                 name="country"
+                value={country}
                 handleChange={handleChange}
                 errMsg={countryErrMsg}
               />
@@ -331,6 +448,7 @@ export default function Form() {
                 type="text"
                 label="Street address*"
                 name="streetAddress"
+                value={streetAddress}
                 handleChange={handleChange}
                 errMsg={streetAddressErrMsg}
               />
@@ -339,6 +457,7 @@ export default function Form() {
                 type="text"
                 label="Apt/Suite/Other"
                 name="aptOther"
+                value={aptOthers}
                 handleChange={handleChange}
                 errMsg={aptOtherErrMsg}
               />
@@ -347,6 +466,7 @@ export default function Form() {
                 type="text"
                 label="City*"
                 name="city"
+                value={city}
                 handleChange={handleChange}
                 errMsg={cityErrMsg}
               />
@@ -355,6 +475,7 @@ export default function Form() {
                 type="text"
                 label="State (if US)"
                 name="stateUs"
+                value={stateUs}
                 handleChange={handleChange}
                 errMsg={stateErrMsg}
               />
@@ -367,6 +488,7 @@ export default function Form() {
                   type="text"
                   label="Postal code*"
                   name="postalCode"
+                  value={postalCode}
                   handleChange={handleChange}
                   errMsg={postalCodeErrMsg}
                 />
@@ -375,6 +497,7 @@ export default function Form() {
                   type="text"
                   label="Province*"
                   name="province"
+                  value={province}
                   handleChange={handleChange}
                   errMsg={provinceErrMsg}
                 />
@@ -394,25 +517,25 @@ export default function Form() {
             {!timerEnd && !state.paymentReceived ?
               <div className='fcentercolai' style={{opacity: timerEnd ? "0" : "1", transition: "all .2s"}}>
                 
-                <Countdown key={k} date={Date.now() + 5000} renderer={renderer} />
+                <Countdown key={k} date={Date.now() + 240000} renderer={renderer} />
                 <p className="text-center word-wrap fs-2">Send woodcoin before timer ends</p>
                 
-                <div className="fcentercol mt1">
+                <div className="fcentercol mt2">
                     <div style={{ height: "auto", margin: "0 auto", maxWidth: 128, width: "100%" }}>
-                      <QRCode
+                      {logAddress && <QRCode
                         size={256}
                         style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                        value="Wbj4WLUhYpiRpr8HhRT9gdcdvHEW8dVnDx"
+                        value={logAddress}
                         viewBox={`0 0 256 256`}
-                      />
+                      />}
                     </div>
                     <p className="font-bold mb0 tactr mt1">Log Address</p>
                     <p 
                         className="fs12px pointer mb0 greenFont pointer tactr" 
                         style={{marginBottom: '0 !important'}} 
-                        onClick={() => {showCopiedNotification(); navigator.clipboard.writeText("Wbj4WLUhYpiRpr8HhRT9gdcdvHEW8dVnDx")}}
+                        onClick={() => {showCopiedNotification(); navigator.clipboard.writeText({logAddress})}}
                     >
-                        Wbj4WLUhYpiRpr8HhRT9gdcdvHEW8dVnDx
+                        {logAddress}
                     </p>
                     <div style={{height: "24px"}}>
                         {copied ? <span className="font-success fs12px">LOG address copied</span> : null}
@@ -424,14 +547,13 @@ export default function Form() {
                 <span className="font-face-digital fs-25 yellowFont mv2h1">0:00</span>
 
                 <p className="text-center word-wrap fs-2">Still want to continue?</p>
-                <img src="/images/timerExpired.png" width='152px' height='auto'/>
+                <img src="/images/timerEnd.gif" width='152px' height='auto'/>
                 <p className="text-center word-wrap fs-1 mb1">Click reset timer if you want to repeat the payment time.</p>
                 <div className="mv3h0">
                     <button onClick={() => restartTimer()} className="primary-button-nw">Reset timer</button>
                 </div> 
               </div>
             }
-            
           </>
           : 
           null
