@@ -50,27 +50,24 @@ export default function Home() {
 
       <div className="home-about">
         <h2>About us</h2>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-        <div className="columns">
+        <p>Welcome to mylog store! We are excited to offer a convenient and secure way to shop using cryptocurrency payments. Our store features a wide variety of high-quality products,.........more.</p>
+        <div className="columns mt2">
           <div className="col fade-in">
-            <h3>Lorem, ipsum.</h3>
+            {/* <h3>Lorem, ipsum.</h3> */}
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae
-              maiores fuga eos provident voluptas perferendis.
+            With our easy-to-use checkout process, you can quickly and securely complete your purchase using Bitcoin, Ethereum, or other popular.cryptocurrencies
             </p>
           </div>
           <div className="col fade-in">
-            <h3>A, illo!</h3>
+            {/* <h3>A, illo!</h3> */}
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptatibus minima quo beatae eius blanditiis officiis.
+            Shop with confidence knowing that your payment information is protected by the latest encryption technology.
             </p>
           </div>
           <div className="col fade-in">
-            <h3>Repudiandae, error?</h3>
+            {/* <h3>Repudiandae, error?</h3> */}
             <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum
-              quasi quis doloribus quia illum laudantium.
+            Start browsing our selection today and experience the future of online shopping with cryptocurrency!
             </p>
           </div>
         </div>

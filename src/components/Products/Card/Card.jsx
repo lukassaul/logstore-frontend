@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import Interest from "./Interest";
 import { Link } from "react-router-dom";
@@ -9,6 +10,7 @@ import { PostLockProductAPI } from "../../../api/lockProduct";
 export default function Card(props) {
   const { dispath } = useContext(ProductDispath);
   const { state } = useContext(ProductContext);
+  const navigate = useNavigate()
 
   const datas = state.allProducts.find((product) => product._id === props._id);
   const checkBasket = state.basket.some((product) => product._id === props._id);
@@ -41,16 +43,20 @@ export default function Card(props) {
         {datas.totalQty > 0 ?
           <button
             onClick={() => {
-              dispath({ type: "ADD_TO_BASKET", payload: props._id })
-              let lockData = [{
-                productId: props._id,
-                size: null,
-                quantity: 1
-              }]
-              try {
-                PostLockProductAPI({product: lockData})
-              }catch(e) {
-                console.log("Error in locking item")
+              if (props.category === "Tshirts") {
+                navigate(`/${props._id}`)
+              } else {
+                dispath({ type: "ADD_TO_BASKET", payload: {id: props._id, size: null} })
+                let lockData = [{
+                  productId: props._id,
+                  size: null,
+                  quantity: 1
+                }]
+                try {
+                  PostLockProductAPI({product: lockData})
+                }catch(e) {
+                  console.log("Error in locking item")
+                }
               }
             }}
             className="products_button buy_button"

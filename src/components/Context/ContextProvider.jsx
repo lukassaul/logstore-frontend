@@ -74,9 +74,11 @@ const reduce = (state, action) => {
       );
       if (!hasProduct) {
         const mainItem = state.allProducts.find(
-          (product) => product._id === action.payload
+          (product) => product._id === action.payload.id
         );
         mainItem.count = 1
+        mainItem.size = action.payload.size
+        
         state.basket.push(mainItem);
         setItemFunc(state.basket)
       }

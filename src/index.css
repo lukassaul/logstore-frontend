@@ -1721,6 +1721,32 @@ body {
 .cancel-button:focus {
   background-color: #fafafa
 }
+
+.sizes-select {
+  background-color: #FFF;
+  border: 1px solid #C2C2C2;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+.sizes-select:hover,
+.sizes-select:focus,
+.sizes-select.selected {
+  background-color: var(--primary-color-3)
+}
+
+.sizes-select-soldout {
+  border: 1px solid #C2C2C2;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+.available-pcs {
+  color: #5A5A5A;
+  font-size: 12px;
+}
 /**
   End of Form css
 **/
