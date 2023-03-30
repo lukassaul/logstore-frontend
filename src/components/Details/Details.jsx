@@ -7,6 +7,8 @@ import { HiArrowLeft } from "react-icons/hi";
 import Buttons from "../Buttons/Buttons";
 import { GetProductsAPI } from "../../api/getProducts";
 import { PostLockProductAPI } from "../../api/lockProduct";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 export default function Details() {
   const navigate = useNavigate();
@@ -16,6 +18,8 @@ export default function Details() {
 
   const [ orderedSize, setOrderedSize ] = useState()
   const [ selectSizeError, setSelectSizeError ] = useState('')
+  const [ itemCount, setItemCount ] = useState(0)
+  const [ availableStock, setAvailableStock ] = useState(0)
 
   const getProducts = async() => {
     //console.log("state.allProducts.length: ", state.allProducts.length)
@@ -31,18 +35,52 @@ export default function Details() {
   const basketItem = state.basket.find((product) => product._id == params.id)
 
   useEffect(() => {
-    //console.log("useEffect")
     getProducts()
   }, [])
 
   useEffect(() => {
-    if(basketItem && basketItem.category === "Tshirts") setOrderedSize(basketItem.size) 
-  }, [basketItem])
+    if (datas) setAvailableStock(datas.totalQty)
+  }, [datas])
+
+  /**
+   * Checking the size of the items present on the cart
+   * 
+   */
+  // useEffect(() => {
+  //   if(basketItem && basketItem.category === "Tshirts") setOrderedSize(basketItem.size) 
+  // }, [basketItem])
 
   // console.log("details parameters: ", params)
   // console.log("details allProducts: ", state.allProducts)
   // console.log("details datas: ", datas)
   // console.log("details checkbastket: ", checkBasket)
+
+
+  function setSizeQuantity(size) {
+    switch (size) {
+      case "Small":
+        setAvailableStock(datas.smallQty)
+        break
+      case "Medium":
+        setAvailableStock(datas.mediumQty)
+        break
+      case "Large":
+        setAvailableStock(datas.largeQty)
+        break
+      case "XL":
+        setAvailableStock(datas.xlQty)
+        break
+      case "XXL":
+        setAvailableStock(datas.xxlQty)
+        break
+      case "XXXL":
+        setAvailableStock(datas.xxxlQty)
+        break
+      default:
+        setAvailableStock(datas.totalQty)
+        break
+    }
+  }
 
   const showSizes = (size) => {
     let soldout = false 
@@ -83,6 +121,7 @@ export default function Details() {
         onClick={ () => {
           setOrderedSize(size)
           setSelectSizeError('')
+          setSizeQuantity(size)
         }}
       >
         {size}
@@ -108,6 +147,47 @@ export default function Details() {
           return null
     }
   }
+
+  function itemQuantityController(operation) {
+    console.log("available stock: ", availableStock)
+    if (datas.category === "Tshirts" && !orderedSize) {
+      setSelectSizeError("Please select size.")
+      return
+    }
+    if (operation==="ADD" && itemCount < availableStock) {
+      setItemCount(itemCount + 1)
+      return
+    }
+    if (operation==="MINUS" && itemCount >= 1) {
+      setItemCount(itemCount - 1)
+      return
+    }
+  }
+
+  function clearStates() {
+    setItemCount(0)
+    if (orderedSize) setOrderedSize(null)
+  }
+
+  const quantityControl = () => {
+    return (
+      <div className="card_information">
+        <div className="faacenter">
+          <span className="mr1">Quantity: </span>
+          <div className="basket_buttons">
+            <span className="basket_plus" onClick={() => itemQuantityController("ADD")}>
+              <AiOutlinePlus />
+            </span>
+            <span className="counter_number">{itemCount && itemCount}</span>
+            <span className="basket_minus" onClick={() => itemQuantityController("MINUS")}>
+              <AiOutlineMinus />
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
 
 
   return (
@@ -181,33 +261,50 @@ export default function Details() {
 
           {selectSizeError ? <p className="errFont fs-12px">{selectSizeError}</p> : null}
 
-          {checkBasket && <Buttons {...datas} />}
-          {!checkBasket &&
+          {quantityControl()}
+
+          {/* {checkBasket && <Buttons {...datas} />}
+          {!checkBasket && */}
             <button
-              onClick={() => {
+              onClick={async() => {
                 if (datas.category === "Tshirts") {
                   if (orderedSize) {
-                    dispath({ type: "ADD_TO_BASKET", payload: {id: datas._id, size: orderedSize} })
+                    dispath({ type: "ADD_TO_BASKET", payload: {id: datas._id, size: orderedSize, count: itemCount} })
                     let lockData = [{
                       productId: datas._id,
                       size: orderedSize,
-                      quantity: 1
+                      quantity: itemCount
                     }]
                     try {
-                      PostLockProductAPI({product: lockData})
+                      await PostLockProductAPI({product: lockData})
+                      clearStates()
+                      getProducts()
                     }catch(e) {
                       console.log("Error in locking item")
                     }
                   } else 
                     setSelectSizeError("Please select size.")
-                } else
-                  dispath({ type: "ADD_TO_BASKET", payload: {id: datas._id, size: null} })
+                } else {
+                  dispath({ type: "ADD_TO_BASKET", payload: {id: datas._id, size: null, count: itemCount} })
+                  let lockData = [{
+                    productId: datas._id,
+                    size: orderedSize,
+                    quantity: itemCount
+                  }]
+                  try {
+                    await PostLockProductAPI({product: lockData})
+                    clearStates()
+                    getProducts()
+                  }catch(e) {
+                    console.log("Error in locking item")
+                  }
+                }
               }}
               className="card_buy"
             >
               Add to cart
             </button>
-          }
+          {/* } */}
         </div>
       </div>
 

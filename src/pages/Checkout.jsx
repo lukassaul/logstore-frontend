@@ -119,7 +119,7 @@ export default function Checkout() {
                             </div>
                             <div className="basket_itemBox item_box_scroll">
                                 {state.basket.map((product) => (
-                                    <CheckoutItem key={product._id} {...product} />
+                                    <CheckoutItem key={product.cartId} {...product} />
                                 ))}
                             </div>
                         </div>

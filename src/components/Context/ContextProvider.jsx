@@ -69,19 +69,20 @@ const reduce = (state, action) => {
         ...state
       };
     case "ADD_TO_BASKET": {
-      const hasProduct = state.basket.some(
-        (product) => product._id === action.payload
-      );
-      if (!hasProduct) {
+      // const hasProduct = state.basket.some(
+      //   (product) => product._id === action.payload
+      // );
+      // if (!hasProduct) {
         const mainItem = state.allProducts.find(
           (product) => product._id === action.payload.id
         );
-        mainItem.count = 1
+        mainItem.cartId = mainItem._id + Date.now()
+        mainItem.count = action.payload.count
         mainItem.size = action.payload.size
         
         state.basket.push(mainItem);
         setItemFunc(state.basket)
-      }
+      // }
 
       return {
         ...state,
@@ -90,11 +91,11 @@ const reduce = (state, action) => {
     }
     case "REMOVE_FROM_BASKET": {
       const indexDelete = state.basket.findIndex(
-        (product) => product._id === action.payload
+        (product) => product.cartId === action.payload
       );
       state.basket[indexDelete].count = 1;
       state.basket = state.basket.filter(
-        (product) => product._id !== action.payload
+        (product) => product.cartId !== action.payload
       );
 
       setItemFunc(state.basket)
@@ -106,7 +107,7 @@ const reduce = (state, action) => {
     }
     case "INCREASE": {
       const indexPlus = state.basket.findIndex(
-        (product) => product._id === action.payload
+        (product) => product.cartId === action.payload
       );
       state.basket[indexPlus].count++;
       
@@ -119,7 +120,7 @@ const reduce = (state, action) => {
     }
     case "DECREASE": {
       const indexMinus = state.basket.findIndex(
-        (product) => product._id === action.payload
+        (product) => product.cartId === action.payload
       );
       if (state.basket[indexMinus].count > 1) {
         state.basket[indexMinus].count--;

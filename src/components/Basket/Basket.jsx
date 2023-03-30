@@ -15,8 +15,6 @@ export default function Basket() {
   const { dispath } = useContext(ProductDispath);
   const navigate = useNavigate()
 
-  console.log("state basket: ", state.basket)
-
   return (
     <>
       <div className="favorite_container_linkBar">
@@ -32,7 +30,7 @@ export default function Basket() {
             <div className="free_send_title">
               <img src="images/sound(1).jpg" alt="" />
               <span>
-                Shipping is free for purchases over 1000 LOG.
+                Shipping fee is already included in the total price.
               </span>
             </div>
           </div>
@@ -42,7 +40,7 @@ export default function Basket() {
         <div className="basket_container">
           <div className="basket_itemBox">
             {state.basket.map((product) => (
-              <BasketItem key={product._id} {...product} />
+              <BasketItem key={product.cartId} {...product} />
             ))}
           </div>
           <div className="basket_priceBox">
