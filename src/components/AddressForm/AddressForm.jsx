@@ -516,7 +516,7 @@ export default function Form(props) {
             {!timerEnd && !state.paymentReceived ?
               <div className='fcentercolai' style={{opacity: timerEnd ? "0" : "1", transition: "all .2s"}}>
                 
-                <Countdown key={k} date={Date.now() + 240000} renderer={renderer} />
+                <Countdown key={k} date={Date.now() + 1200000} renderer={renderer} />
                 <p className="text-center word-wrap fs-2">Send woodcoin before timer ends</p>
                 
                 <div className="fcentercol mt2">
