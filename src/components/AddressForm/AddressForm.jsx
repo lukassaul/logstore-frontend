@@ -339,7 +339,7 @@ export default function Form(props) {
                   console.log("sendOrder: ", sendOrder)
                   if (sendOrder.status = 200 && !sendOrder.data.error) {
 
-                    props.setOrderId(sendOrder.data.details._id)
+                    props.setOrderDetails(sendOrder.data.details)
                     dispath({ type: "PAYMENT_RECEIVED", payload: true})
                     dispath({ type: "SENDING_ORDER", payload: false })
                     dispath({ type: "EMPTY_BASKET" })
@@ -385,10 +385,10 @@ export default function Form(props) {
         SocketController()
     }
 
-    return () => {
-        console.log("leaving the page")
-        closeSocket()
-    }
+    // return () => {
+    //     console.log("leaving the page")
+    //     closeSocket()
+    // }
   }, [logAddress])
   
   return (

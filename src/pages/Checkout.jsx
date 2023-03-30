@@ -8,7 +8,7 @@ import { sendPrice } from "../Offer";
 export default function Checkout() {
     const { state } = useContext(ProductContext);
     const { dispath } = useContext(ProductDispath)
-    const [orderId, setOrderId ] = useState()
+    const [orderDetails, setOrderDetails ] = useState()
 
     const orderReceipt = () => {
         return (
@@ -17,7 +17,7 @@ export default function Checkout() {
                 <p className="tactr mb2">Thank you for shopping. We have received your payment.</p>
 
                 <p className="bold">Order number:</p>
-                <p className="fs-26px grayFont2 bold mb2">{orderId}</p>
+                <p className="fs-26px grayFont2 bold mb2">{orderDetails && orderDetails._id}</p>
 
                 <p className="mb2">Estimated deliver time frame by region (in working days) - Metro Manila: 1 - 3 days, Luzon: 5 - 8 days, Visayas: 8 - 10 days, Mindanao: 10 - 12 days. Government mandated Community Quarantine may impact delivery time.Package includes official receipt (BIR Registered), packing list, return form, and the items you ordered.</p>
 
@@ -25,22 +25,24 @@ export default function Checkout() {
                     <p className="fs-26px grayFont bold">Order summary</p>
                     <div className="bbgreen mb2 pv1h1 fcentercol">
                         <table style={{width:"80%"}}>
-                            <tr>
-                                <td>Item(s) subtotals</td>
-                                <td style={{textAlign: 'end'}}>{state.totalPrice} LOG</td>
-                            </tr>
-                            <tr>
-                                <td>Shipping</td>
-                                <td style={{textAlign: 'end'}}>{sendPrice} LOG</td>
-                            </tr>
-                            <tr className="bold">
-                                <td>subtotals</td>
-                                <td style={{textAlign: 'end'}}>{state.totalPriceFinal} LOG</td>
-                            </tr>
-                            <tr className="bold fs-15">
-                                <td>Order total</td>
-                                <td style={{textAlign: 'end'}}>{state.totalPriceFinal} LOG</td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>Item(s)</td>
+                                    <td style={{textAlign: 'end'}}>{orderDetails && orderDetails.products.length} item(s)</td>
+                                </tr>
+                                <tr>
+                                    <td>Shipping</td>
+                                    <td style={{textAlign: 'end'}}>Included in the total price</td>
+                                </tr>
+                                <tr className="bold">
+                                    <td>subtotals</td>
+                                    <td style={{textAlign: 'end'}}>{orderDetails && orderDetails.price} LOG</td>
+                                </tr>
+                                <tr className="bold fs-15">
+                                    <td>Order total</td>
+                                    <td style={{textAlign: 'end'}}>{orderDetails && orderDetails.price} LOG</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
 
@@ -56,8 +58,7 @@ export default function Checkout() {
 
                     <p className="fs-26px grayFont bold">Delivery date</p>
                     <div className="pv1h1">
-                        <span>Shipping</span>
-                        <span>{sendPrice} LOG</span>
+                        <span>Shipping included in the total price</span>
 
                         <p className="bold m1">Estimated deliver time: 02/28/2023 - 023/03/2023</p>
                         <p>Estimated deliver time frame by region (in working days) - Metro Manila: 1 - 3 days, Luzon: 5 - 8 days, Visayas: 8 - 10 days, Mindanao: 10 - 12 days. Government mandated Community Quarantine may impact delivery time.Package includes official receipt (BIR Registered), packing list, return form, and the items you ordered.</p>
@@ -96,7 +97,7 @@ export default function Checkout() {
                 
                     <div className="basket_container">
                         <div className="fcentercolai br25 w60">
-                            <AddressForm setOrderId={setOrderId} />
+                            <AddressForm setOrderDetails={setOrderDetails} />
                         </div>
                         <div className="w40">
                             <div className="basket_priceBox mb1">
