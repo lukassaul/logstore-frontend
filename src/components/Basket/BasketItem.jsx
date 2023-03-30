@@ -9,7 +9,8 @@ export default function BasketItem(props) {
   const { dispath } = useContext(ProductDispath) 
 
   const getProducts = async() => {
-    if(state.filteredItems.length === 0) {
+    // state.filteredItems to state.allProducts
+    if(state.allProducts.length === 0) {
       let p = await GetProductsAPI()
       if (p.status === 200) dispath({ type: "SET_PRODUCTS", payload: p.data.message })
     }
@@ -20,7 +21,7 @@ export default function BasketItem(props) {
   }, [])
 
   const product = state.allProducts.find((product) => product._id === props._id);
-  // console.log("basketItem props id: ", props)
+  // console.log("basketItem props : ", props)
   // console.log("basketItem prod: ", product)
   return (
     <>
@@ -30,7 +31,7 @@ export default function BasketItem(props) {
             <img src={props.image} alt="basket_item" />
           </div>
           <div className="basket_content">
-            <span className="basket_title">{props.title}</span>
+            <span className="basket_title">{props.title} {props.size ? `- ${props.size}` : null}</span>
             <span>{(props.price * props.count).toLocaleString()} LOG</span>
           </div>
         </Link>

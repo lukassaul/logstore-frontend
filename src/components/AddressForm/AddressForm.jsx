@@ -19,43 +19,43 @@ export default function Form(props) {
   const [k, setK] = useState(false);
 
   const [ logAddress, setLogAddress ] = useState()
-  const [ contactNumber, setContactNumber ] = useState(state.shippingAddress.contact_number ? state.shippingAddress.contact_number : null)
+  const [ contactNumber, setContactNumber ] = useState(state.shippingAddress.contact_number ? state.shippingAddress.contact_number : '')
   const [ contactNumberErrMsg, setContactNumberErrMsg ] = useState()
-  const [ email, setEmail ] = useState(state.shippingAddress.email ? state.shippingAddress.email : null)
+  const [ email, setEmail ] = useState(state.shippingAddress.email ? state.shippingAddress.email : '')
   const [ emailErrMsg, setEmailErrMsg ] = useState()
-  const [ firstName, setFirstName ] = useState(state.shippingAddress.first_name ? state.shippingAddress.first_name : null)
+  const [ firstName, setFirstName ] = useState(state.shippingAddress.first_name ? state.shippingAddress.first_name : '')
   const [ firstNameErrMsg, setFirstNameErrMsg ] = useState()
-  const [ lastName, setLastName ] = useState(state.shippingAddress.last_name ? state.shippingAddress.last_name : null)
+  const [ lastName, setLastName ] = useState(state.shippingAddress.last_name ? state.shippingAddress.last_name : '')
   const [ lastNameErrMsg, setLastNameErrMsg ] = useState()
-  const [ country, setCountry ] = useState(state.shippingAddress.country ? state.shippingAddress.country : null)
+  const [ country, setCountry ] = useState(state.shippingAddress.country ? state.shippingAddress.country : '')
   const [ countryErrMsg, setCountryErrMsg ] = useState()
-  const [ streetAddress, setStreetAddress ] = useState(state.shippingAddress.street_address ? state.shippingAddress.street_address : null)
+  const [ streetAddress, setStreetAddress ] = useState(state.shippingAddress.street_address ? state.shippingAddress.street_address : '')
   const [ streetAddressErrMsg, setStreetAddressErrMsg ] = useState()
-  const [ aptOthers, setAptOther ] = useState(state.shippingAddress.apt_other ? state.shippingAddress.apt_other : null)
+  const [ aptOthers, setAptOther ] = useState(state.shippingAddress.apt_other ? state.shippingAddress.apt_other : '')
   const [ aptOtherErrMsg, setAptOtherErrMsg ] = useState()
-  const [ city, setCity ] = useState(state.shippingAddress.city ? state.shippingAddress.city : null)
+  const [ city, setCity ] = useState(state.shippingAddress.city ? state.shippingAddress.city : '')
   const [ cityErrMsg, setCityErrMsg ] = useState()
-  const [ stateUs, setStateUs ] = useState(state.shippingAddress.stateUs ? state.shippingAddress.stateUs : null)
+  const [ stateUs, setStateUs ] = useState(state.shippingAddress.stateUs ? state.shippingAddress.stateUs : '')
   const [ stateErrMsg, setStateErrMsg ] = useState()
-  const [ postalCode, setPostalCode ] = useState(state.shippingAddress.postal_code ? state.shippingAddress.postal_code : null)
+  const [ postalCode, setPostalCode ] = useState(state.shippingAddress.postal_code ? state.shippingAddress.postal_code : '')
   const [ postalCodeErrMsg, setPostalCodeErrMsg ] = useState()
-  const [ province, setProvince ] = useState(state.shippingAddress.province ? state.shippingAddress.province : null)
+  const [ province, setProvince ] = useState(state.shippingAddress.province ? state.shippingAddress.province : '')
   const [ provinceErrMsg, setProvinceErrMsg ] = useState()
   const [ txid, setTxid ] = useState()
   const [ paymentError, setPaymentError ] = useState()
 
   const onSubmit = () => {
-    console.log("contact number: ", contactNumber)
-    console.log("email: ", email)
-    console.log("firstName: ", firstName)
-    console.log("lastName: ", lastName)
-    console.log("country: ", country)
-    console.log("streetAddress: ", streetAddress)
-    console.log("aptOther: ", aptOthers)
-    console.log("city: ", city)
-    console.log("stateUs: ", stateUs)
-    console.log("postalCode: ", postalCode)
-    console.log("province: ", province)
+    // console.log("contact number: ", contactNumber)
+    // console.log("email: ", email)
+    // console.log("firstName: ", firstName)
+    // console.log("lastName: ", lastName)
+    // console.log("country: ", country)
+    // console.log("streetAddress: ", streetAddress)
+    // console.log("aptOther: ", aptOthers)
+    // console.log("city: ", city)
+    // console.log("stateUs: ", stateUs)
+    // console.log("postalCode: ", postalCode)
+    // console.log("province: ", province)
     resetErrorMessages()
 
     const isDataValid = validate()
@@ -322,7 +322,7 @@ export default function Form(props) {
                     DEPOSITLOGADDRESS: logAddress,
                     logTXID: txid,
                     products: state.basket.map(item => {
-                      return { item: item._id, quantity: item.count}
+                      return { item: item._id, quantity: item.count, size: item.size}
                     }),
                     totalPrice: state.totalPriceFinal
                   }
@@ -380,7 +380,6 @@ export default function Form(props) {
   }
 
   useEffect(() => {
-    console.log("log address useEffect")
     if(!socket && step === 2) {
         console.log("should call socketController")
         SocketController()

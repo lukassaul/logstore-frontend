@@ -32,32 +32,33 @@ export default function Card(props) {
           </div>
         </div>
       </Link>
-      {checkBasket ? (
+      {/* {checkBasket ? (
         <>
           <Buttons {...datas} />
           {datas.totalQty === countItem.count ? <p className="errFont fs-12px">Available stock: {datas.totalQty}</p> : null}
           {datas.totalQty === 0 ? <p className="errFont fs-12px">Sold out</p> : null}
         </>
-      ) : (
+      ) : ( */}
         <>
         {datas.totalQty > 0 ?
           <button
             onClick={() => {
-              if (props.category === "Tshirts") {
-                navigate(`/${props._id}`)
-              } else {
-                dispath({ type: "ADD_TO_BASKET", payload: {id: props._id, size: null} })
-                let lockData = [{
-                  productId: props._id,
-                  size: null,
-                  quantity: 1
-                }]
-                try {
-                  PostLockProductAPI({product: lockData})
-                }catch(e) {
-                  console.log("Error in locking item")
-                }
-              }
+              navigate(`/${props._id}`)
+              // if (props.category === "Tshirts") {
+              //   navigate(`/${props._id}`)
+              // } else {
+              //   dispath({ type: "ADD_TO_BASKET", payload: {id: props._id, size: null} })
+              //   let lockData = [{
+              //     productId: props._id,
+              //     size: null,
+              //     quantity: 1
+              //   }]
+              //   try {
+              //     PostLockProductAPI({product: lockData})
+              //   }catch(e) {
+              //     console.log("Error in locking item")
+              //   }
+              // }
             }}
             className="products_button buy_button"
           >
@@ -73,7 +74,7 @@ export default function Card(props) {
           </button>
         }
         </>
-      )}
+      {/* )} */}
     </div>
   );
 }

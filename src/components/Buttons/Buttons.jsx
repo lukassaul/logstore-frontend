@@ -9,7 +9,7 @@ export default function Buttons(props) {
   
   const { dispath } = useContext(ProductDispath);
   const { state } = useContext(ProductContext);
-  const { _id, totalQty } = props;
+  const { _id, totalQty, cartId } = props;
   const countItem = state.basket.find((product) => product._id === _id);
 
   // console.log("button props: ", props)
@@ -25,7 +25,7 @@ export default function Buttons(props) {
   */
   const checkProductCount = () => {
     if(totalQty > countItem.count) {
-      dispath({ type: "INCREASE", payload: _id })
+      dispath({ type: "INCREASE", payload: cartId })
       let lockData = [{
         productId: _id,
         size: null,
@@ -61,11 +61,11 @@ export default function Buttons(props) {
       >
         <AiOutlinePlus />
       </span>
-      <span className="counter_number">{countItem && countItem.count}</span>
-      {countItem && countItem.count === 1 ? (
+      <span className="counter_number">{props && props.count}</span>
+      {props && props.count === 1 ? (
         <span
           onClick={() => {
-            dispath({ type: "REMOVE_FROM_BASKET", payload: _id })
+            dispath({ type: "REMOVE_FROM_BASKET", payload: cartId })
             unlockProductCount()
           }}
           className="basket_minus"
@@ -75,7 +75,7 @@ export default function Buttons(props) {
       ) : (
         <span
           onClick={() => {
-            dispath({ type: "DECREASE", payload: _id })
+            dispath({ type: "DECREASE", payload: cartId })
             unlockProductCount()
           }}
           className="basket_minus"

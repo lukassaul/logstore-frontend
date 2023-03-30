@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useRef, useContext } from 'rea
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { FilterDispath } from '../components/Context/ContextFilter';
+import Footer from 'components/Footer/Footer';
 
 export default function Home() {
 
@@ -45,7 +46,7 @@ export default function Home() {
   return (
     <main>
       <section className="home-intro">
-        <h1>woodcoin store</h1>
+        <h1>myLogStore</h1>
       </section>
 
       <div className="home-about">
@@ -53,19 +54,19 @@ export default function Home() {
         <p>Welcome to mylog store! We are excited to offer a convenient and secure way to shop using cryptocurrency payments. Our store features a wide variety of high-quality products,.........more.</p>
         <div className="columns mt2">
           <div className="col fade-in">
-            {/* <h3>Lorem, ipsum.</h3> */}
+            <h3>Easy-to-use checkout</h3>
             <p>
             With our easy-to-use checkout process, you can quickly and securely complete your purchase using Bitcoin, Ethereum, or other popular.cryptocurrencies
             </p>
           </div>
           <div className="col fade-in">
-            {/* <h3>A, illo!</h3> */}
+            <h3>Shop with confidence</h3>
             <p>
             Shop with confidence knowing that your payment information is protected by the latest encryption technology.
             </p>
           </div>
           <div className="col fade-in">
-            {/* <h3>Repudiandae, error?</h3> */}
+            <h3>Start browing</h3>
             <p>
             Start browsing our selection today and experience the future of online shopping with cryptocurrency!
             </p>
@@ -163,6 +164,8 @@ export default function Home() {
           </p>
         </div>
       </div>
+
+      <Footer />
     </main>
   );
 };
