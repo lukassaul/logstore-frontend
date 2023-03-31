@@ -41,7 +41,7 @@ function Header() {
     <header className="header">
       <nav className="nav">
         <Link to={"/"} className="logo">
-          Online store
+          <img src="/images/logo.png" width="140px"/>
         </Link>
         {/* <div className="search_header">{pathname === "/products" && <SearchBar />}</div> */}
         <div className="icon_Sopping_box">
