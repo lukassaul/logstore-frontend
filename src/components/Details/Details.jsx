@@ -19,6 +19,7 @@ export default function Details() {
   const [ orderedSize, setOrderedSize ] = useState()
   const [ selectSizeError, setSelectSizeError ] = useState('')
   const [ itemCount, setItemCount ] = useState(0)
+  const [ itemCountError, setItemCountError ] = useState('')
   const [ availableStock, setAvailableStock ] = useState(0)
 
   const getProducts = async() => {
@@ -156,10 +157,12 @@ export default function Details() {
     }
     if (operation==="ADD" && itemCount < availableStock) {
       setItemCount(itemCount + 1)
+      setItemCountError('')
       return
     }
     if (operation==="MINUS" && itemCount >= 1) {
       setItemCount(itemCount - 1)
+      setItemCountError('')
       return
     }
   }
@@ -184,6 +187,7 @@ export default function Details() {
             </span>
           </div>
         </div>
+        {itemCountError ? <p className="errFont fs-12px">{itemCountError}</p> : null}
       </div>
     );
   }
@@ -267,6 +271,10 @@ export default function Details() {
           {!checkBasket && */}
             <button
               onClick={async() => {
+                if (itemCount === 0) {
+                  setItemCountError('Add item quantity') 
+                  return
+                }
                 if (datas.category === "Tshirts") {
                   if (orderedSize) {
                     dispath({ type: "ADD_TO_BASKET", payload: {id: datas._id, size: orderedSize, count: itemCount} })
