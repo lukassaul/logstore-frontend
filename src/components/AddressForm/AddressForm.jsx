@@ -354,7 +354,7 @@ export default function Form(props) {
                     dispath({ type: "PAYMENT_ERROR", payload: true})
                   }
               } else {
-                  console.log("LOG received is below minimum swap amount")
+                  console.log("LOG received is below order total price")
                   setPaymentError("The received payment (LOG) is below your order/'s total amount. Sorry, we don't do a refund.")
                   dispath({ type: "PAYMENT_RECEIVED", payload: true})
                   dispath({ type: "PAYMENT_ERROR", payload: true})
