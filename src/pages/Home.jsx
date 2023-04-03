@@ -50,7 +50,7 @@ export default function Home() {
       </section>
 
       <div className="home-about">
-        <h2>About us</h2>
+        {/* <h2>About us</h2>
         <p>Welcome to mylog store! We are excited to offer a convenient and secure way to shop using cryptocurrency payments. Our store features a wide variety of high-quality products,.........more.</p>
         <div className="columns mt2">
           <div className="col fade-in">
@@ -71,7 +71,21 @@ export default function Home() {
             Start browsing our selection today and experience the future of online shopping with cryptocurrency!
             </p>
           </div>
-        </div>
+        </div> */}
+        <p className='mb1 bold fs-26px tactr'>Welcome to mylog store!</p>
+        <p>We are excited to offer a convenient and secure way to shop using Cryptocurrency payments. Our store features a wide variety of high-quality products, .........more. With our easy-to-use checkout process, you can quickly and securely complete your purchase using Woodcoin. Shop with confidence, knowing that your payment information is protected by the latest encryption technology. Start browsing our selection today and experience the future of online shopping with cryptocurrency!</p>
+      </div>
+
+      <div className='fcenter'>
+        <p
+          onClick={() => {
+            dispath({ type: "ALL" })
+            navigate("/products")
+          }}
+          className="pbtnGreen"
+        >
+            All Categories <AiOutlineArrowRight />
+        </p>
       </div>
 
       <div className="home-more-stuff">
