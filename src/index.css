@@ -1,6 +1,7 @@
 /* Blue Green */
 :root {
-  --primary-color-1: #22577a;
+  /* --primary-color-1: #22577a; */
+  --primary-color-1: #70908B;
   --primary-color-2: #38a3a5;
   --primary-color-3: #57cc99;
   --primary-color-4: #80ed99;
@@ -258,7 +259,7 @@ body {
     line-height: 35px;
     display: block;
     border-radius: 25px;
-    background-color: var(--primary-color-2);
+    background-color: var(--primary-color-1);
     border: none;
     outline: none;
     color: #fff;
@@ -269,7 +270,7 @@ body {
 }
 
 .filter_btn:hover {
-    background-color: #7fb002;
+    background-color: var(--primary-color-2);
 }
 /**
   Endf of Filter css
@@ -285,15 +286,15 @@ body {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 24px;
   row-gap: 20px;
   padding: 16px;
 }
 
 .box {
-  background-color: #fff;
+  background-color: var(--form-background);
   border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.08) 0px 5px 20px;
+  /* box-shadow: rgba(0, 0, 0, 0.08) 0px 5px 20px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -306,7 +307,8 @@ body {
 }
 
 .box:hover {
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 30px;
+  /* box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 30px; */
+  border: 3px solid var(--primary-color-1);
   transform: translateY(-3px);
 }
 
@@ -1107,9 +1109,11 @@ body {
 }
 
 .home-about {
-  padding: 4em 0;
-  max-width: 900px;
-  margin: 0 auto;
+  width: 80%;
+  padding: 2em 4em;
+  margin: 3em auto;
+  background-color: var(--form-background);
+  color: #5A5A5A;
 }
 
 .columns {
@@ -1531,8 +1535,16 @@ body {
   text-align: center;
 }
 
+.taright {
+  text-align: right;
+}
+
 .taj {
   text-align: justify;
+}
+
+.tdnone {
+  text-decoration: none;
 }
 
 

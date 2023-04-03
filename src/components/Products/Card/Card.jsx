@@ -17,7 +17,7 @@ export default function Card(props) {
   const countItem = state.basket.find((product) => product._id === props._id);
 
   // console.log("state.allProducts: ", state.allProducts)
-  // console.log("card datas: ", datas)
+  console.log("card datas: ", datas)
 
   return (
     <div key={props._id} className="box">
@@ -30,8 +30,12 @@ export default function Card(props) {
           <div className="price">
             <span>{props.price.toLocaleString()} LOG</span>
           </div>
+
+          <p className="taright tdnone">{datas.sold} sold</p>
         </div>
+        
       </Link>
+      
       {/* {checkBasket ? (
         <>
           <Buttons {...datas} />
@@ -39,7 +43,7 @@ export default function Card(props) {
           {datas.totalQty === 0 ? <p className="errFont fs-12px">Sold out</p> : null}
         </>
       ) : ( */}
-        <>
+        {/* <>
         {datas.totalQty > 0 ?
           <button
             onClick={() => {
@@ -73,7 +77,7 @@ export default function Card(props) {
             Sold out
           </button>
         }
-        </>
+        </> */}
       {/* )} */}
     </div>
   );

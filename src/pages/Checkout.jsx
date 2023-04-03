@@ -10,6 +10,18 @@ export default function Checkout() {
     const { dispath } = useContext(ProductDispath)
     const [orderDetails, setOrderDetails ] = useState()
 
+    /**
+     * To be used for displaying the receipt when the user 
+     * successfully perform checkout process
+     * deliveryDateOne and deliveryDateTwo is the estimated
+     * delivery time
+     */
+    var today = new Date();
+    var deliveryDateOne = new Date();
+    deliveryDateOne.setDate(today.getDate()+3);
+    var deliveryDateTwo = new Date();
+    deliveryDateTwo.setDate(today.getDate()+5);
+
     const orderReceipt = () => {
         return (
             <div className="mt1">
@@ -60,7 +72,7 @@ export default function Checkout() {
                     <div className="pv1h1">
                         <span>Shipping included in the total price</span>
 
-                        <p className="bold m1">Estimated deliver time: 02/28/2023 - 023/03/2023</p>
+                        <p className="bold m1">Estimated deliver time: {deliveryDateOne.toLocaleDateString()} - {deliveryDateTwo.toLocaleDateString()}</p>
                         <p>Estimated deliver time frame by region (in working days) - Metro Manila: 1 - 3 days, Luzon: 5 - 8 days, Visayas: 8 - 10 days, Mindanao: 10 - 12 days. Government mandated Community Quarantine may impact delivery time.Package includes official receipt (BIR Registered), packing list, return form, and the items you ordered.</p>
                     </div>
                 </div>
