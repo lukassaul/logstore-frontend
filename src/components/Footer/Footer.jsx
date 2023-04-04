@@ -15,7 +15,7 @@ export default function Footer() {
 
         <div className="footer_btn_title_box">
           <p>
-            Vermont Online Store
+            MyLogStore
           </p>
         </div>
       </div>
