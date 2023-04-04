@@ -1102,7 +1102,9 @@ body {
 .home-intro {
   padding: 20vh 0;
   background: url('../public/images/header1.png');
+  background-position: center center;
   background-size: cover;
+  background-attachment: inherit;
   background-blend-mode: multiply;
   color: white;
   text-align: center;
@@ -1113,6 +1115,13 @@ body {
   padding: 2em 4em;
   margin: 3em auto;
   background-color: var(--form-background);
+  color: #5A5A5A;
+}
+
+.home-more-stuff {
+  width: 80%;
+  padding: 2em 4em;
+  margin: 3em auto;
   color: #5A5A5A;
 }
 
@@ -1136,7 +1145,7 @@ body {
 .bg-green {
   background: url(../public/images/green.svg);
   background-repeat: no-repeat;
-  background-position: left;
+  background-position: right;
 }
 
 .bg-blue {
@@ -1154,7 +1163,11 @@ body {
 .bg-olive {
   background: url(../public/images/olive.svg);
   background-repeat: no-repeat;
-  background-position: right;
+  background-position: left;
+}
+
+.bg-size40 {
+  background-size: 40%;
 }
 
 .more-stuff-grid {
@@ -1194,6 +1207,25 @@ body {
   -webkit-transform: translateX(0);
   transform: translateX(0);
   opacity: 1;
+}
+
+
+@media screen and (max-width: 660px) {
+  .home-about {
+    width: 90%;
+    padding: 2em 2em;
+    margin: 2em auto;
+  }
+
+  .home-more-stuff {
+    width: 100%;
+    padding: 2em 2em;
+    margin: 2em auto;
+  }
+
+  .bg-size40 {
+    background-size: 100%;
+  }
 }
 
 /**
@@ -1520,7 +1552,7 @@ body {
 }
 
 .grayFont2 {
-  color: #5A5A5A;
+  color: #5A5A5A !important;
 }
 
 .errFont {
@@ -1555,8 +1587,16 @@ body {
   width: 100%;
 }
 
+.w80 {
+  width: 80%;
+}
+
 .w60 {
   width: 60%;
+}
+
+.w50 {
+  width: 50%;
 }
 
 .w40 {
@@ -1585,6 +1625,13 @@ body {
   align-items: center;
 }
 
+.faacenterspca {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .fcentercol {
   display: flex;
   justify-content: center;
@@ -1604,6 +1651,11 @@ body {
   gap: 12px;
 }
 
+.responsive {
+  width: 100%;
+  height: auto;
+}
+
 /* .animateSection {
   opacity: !isOpen ? "0" : "1";
   transition: "all .2s";
@@ -1611,6 +1663,10 @@ body {
 
 @media screen and (max-width: 660px) {
   .frow {
+    flex-direction: column;
+  }
+
+  .faacenterspca {
     flex-direction: column;
   }
 }
@@ -1805,7 +1861,15 @@ body {
     width: 100%;
   }
 
+  .w80 {
+    width: 100%
+  }
+
   .w60 {
+    width: 100%
+  }
+
+  .w50 {
     width: 100%
   }
 

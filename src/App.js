@@ -7,7 +7,6 @@ import Header from './components/Header/Header';
 import Products from './components/Products/Products';
 import Checkout from './pages/Checkout';
 import Home from './pages/Home';
-import Login from './pages/Login';
 import ScrollToTop from './ScrollToTop';
 
 
@@ -15,7 +14,6 @@ import ScrollToTop from './ScrollToTop';
 function App() {
   let router = useRoutes([
     { path: '/', element: <Home /> },
-    { path: '/login', element: <Login /> },
     { path: '/products', element: <Products /> },
     { path: '/:id', element: <Details /> },
     { path: '/basket', element: <Basket /> },
