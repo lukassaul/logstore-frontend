@@ -10,7 +10,7 @@ function ProductEven(dispath, background, image, category, title, comp, descript
     return (
         <div className={bg}>
           <div className='faacenterspca'>
-            <div className="slide-in from-left w80">
+            <div className="slide-in from-left w50">
               <p 
                 onClick={() => {
                   dispath({ type: category })
