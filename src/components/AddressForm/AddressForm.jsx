@@ -292,7 +292,7 @@ export default function Form(props) {
   // }))
   function SocketController() {
       
-      socket = new WebSocket(`wss://twigchain.com:4000?address=${logAddress}`)
+      socket = new WebSocket(`wss://twigchain.com:4001?address=${logAddress}`)
 
       socket.addEventListener('open', function(event){
           console.log('connected to ws server')
