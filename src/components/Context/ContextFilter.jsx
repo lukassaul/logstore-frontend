@@ -11,12 +11,12 @@ export default function ContextFilter({ children }) {
 
   const getProducts = async() => {
     let p = await GetProductsAPI()
-    console.log("filter get products: ", p.data.message)
+    //console.log("filter get products: ", p.data.message)
     if (p.status === 200) setProds(p.data.message)
   }
   
   useEffect(() => {
-    console.log("context filter useEffect")
+    //console.log("context filter useEffect")
     getProducts()
   }, [])
 

@@ -150,7 +150,7 @@ export default function Details() {
   }
 
   function itemQuantityController(operation) {
-    console.log("available stock: ", availableStock)
+    //console.log("available stock: ", availableStock)
     if (datas.category === "Tshirts" && !orderedSize) {
       setSelectSizeError("Please select size.")
       return
@@ -221,9 +221,10 @@ export default function Details() {
                   //borderRadius: "50%",
                 },
                 enlargedImageContainerDimensions: {
-                  width: "100%",
-                  height: "100%",
+                  width: "120%",
+                  height: "120%",
                 },
+                lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' },
                 isHintEnabled: true,
                 isFluidWidth: true,
               }}
@@ -248,7 +249,7 @@ export default function Details() {
             </ul>
           </div>
 
-          {datas.category === "Tshirts" ? 
+          {datas && datas.category === "Tshirts" ? 
             <div style={{display: "flex", gap: "8px"}}>
               {showSizes("Small")}
               {showSizes("Medium")}
@@ -261,7 +262,7 @@ export default function Details() {
             null
           }
 
-          {datas.category === "Tshirts" && orderedSize ? showAvailableQuantity() : null}
+          {datas && datas.category === "Tshirts" && orderedSize ? showAvailableQuantity() : null}
 
           {selectSizeError ? <p className="errFont fs-12px">{selectSizeError}</p> : null}
 

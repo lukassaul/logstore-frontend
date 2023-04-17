@@ -31,8 +31,7 @@ export default function Checkout() {
                 <p className="bold">Order number:</p>
                 <p className="fs-26px grayFont2 bold mb2">{orderDetails && orderDetails._id}</p>
 
-                <p className="mb2">Estimated deliver time frame by region (in working days) - Metro Manila: 1 - 3 days, Luzon: 5 - 8 days, Visayas: 8 - 10 days, Mindanao: 10 - 12 days. Government mandated Community Quarantine may impact delivery time.Package includes official receipt (BIR Registered), packing list, return form, and the items you ordered.</p>
-
+                <p className="mb2">Estimated delivery time: Three (3) to five (5) days after receiving the payment.</p>
                 <div className="formBack br25 w100 pv3h4">
                     <p className="fs-26px grayFont bold">Order summary</p>
                     <div className="bbgreen mb2 pv1h1 fcentercol">
@@ -71,9 +70,7 @@ export default function Checkout() {
                     <p className="fs-26px grayFont bold">Delivery date</p>
                     <div className="pv1h1">
                         <span>Shipping included in the total price</span>
-
                         <p className="bold m1">Estimated deliver time: {deliveryDateOne.toLocaleDateString()} - {deliveryDateTwo.toLocaleDateString()}</p>
-                        <p>Estimated deliver time frame by region (in working days) - Metro Manila: 1 - 3 days, Luzon: 5 - 8 days, Visayas: 8 - 10 days, Mindanao: 10 - 12 days. Government mandated Community Quarantine may impact delivery time.Package includes official receipt (BIR Registered), packing list, return form, and the items you ordered.</p>
                     </div>
                 </div>
             </div>

@@ -1887,7 +1887,7 @@ body {
 @media screen and (max-width: 500px) {
   .favorite_container,
   .product_container {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .basket_img img {
@@ -1915,7 +1915,7 @@ body {
 @media screen and (max-width: 400px) {
   .favorite_container,
   .product_container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
