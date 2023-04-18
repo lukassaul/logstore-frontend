@@ -20,7 +20,7 @@ export default function Card(props) {
   //console.log("card datas: ", datas)
 
   return (
-    <div key={props._id} className="box">
+    <div key={props._id} className={datas && datas.totalQty === 0 ? "box sold-out" : "box"}>
       <Link to={`/${props._id}`}>
         <img className="product_img" src={props.image} alt="product" />
         <div className="content">

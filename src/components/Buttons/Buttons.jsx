@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { ProductContext, ProductDispath } from "../Context/ContextProvider";
@@ -11,6 +11,8 @@ export default function Buttons(props) {
   const { state } = useContext(ProductContext);
   const { _id, totalQty, cartId } = props;
   const countItem = state.basket.find((product) => product._id === _id);
+
+  const [maxError, setMaxError] = useState(false)
 
   // console.log("button props: ", props)
   // console.log("button basket: ", state.basket)
@@ -36,6 +38,8 @@ export default function Buttons(props) {
       }catch(e) {
         console.log("Error in locking item")
       }
+    } else {
+
     }
   }
 

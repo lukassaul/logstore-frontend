@@ -28,8 +28,6 @@ export default function Products() {
     else return product.title.includes(state.searchKey) || !state.searchKey;
   });
 
-  
-
   return (
     <>
       <Filter />

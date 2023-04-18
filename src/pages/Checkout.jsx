@@ -88,6 +88,17 @@ export default function Checkout() {
         )
     }
 
+    const invalidTransaction = () => {
+        return(
+            <div className='fcentercolai mt2 animateSection'>
+                <p className="text-center word-wrap fs-2">Invalid transaction.</p>
+                <p className="text-center word-wrap fs-12px mb3">An error occurred while processing your order.</p>
+
+                <img src="/images/invalid_transaction.png"/>
+            </div>
+        )
+    }
+
     useEffect(() => {
         return () => {
             dispath({ type: "PAYMENT_RECEIVED", payload: false})
@@ -139,9 +150,11 @@ export default function Checkout() {
                 null
             }
 
-            {state.paymentReceived && !state.paymentError ? orderReceipt() : null}
+            {state.paymentReceived && !state.paymentError && !state.transactionError ? orderReceipt() : null}
 
             {state.paymentReceived && state.paymentError ? insufficientPayment() : null}
+
+            {state.paymentReceived && state.transactionError ? invalidTransaction() : null}
         </div>
     )
 }

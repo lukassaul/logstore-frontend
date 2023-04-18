@@ -5,6 +5,7 @@ import Countdown from 'react-countdown';
 import InputField from './InputField';
 import { ProductContext, ProductDispath } from '../Context/ContextProvider';
 import { PostOrdersAPI } from '../../api/postOrders';
+import { GetProductsAPI } from 'api/getProducts';
 
 
 export default function Form(props) {
@@ -337,21 +338,35 @@ export default function Form(props) {
                   let sendOrder = await PostOrdersAPI(orderData)
                   dispath({ type: "SENDING_ORDER", payload: true })
                   console.log("sendOrder: ", sendOrder)
-                  if (sendOrder.status = 200 && !sendOrder.data.error) {
+                  console.log("status: ", sendOrder.status)
+                  if (sendOrder.status === 200) {
 
                     props.setOrderDetails(sendOrder.data.details)
                     dispath({ type: "PAYMENT_RECEIVED", payload: true})
                     dispath({ type: "SENDING_ORDER", payload: false })
                     dispath({ type: "EMPTY_BASKET" })
-                  }
-                  /**
-                   * If there is an error, notify user that the payment was received
-                   * and is being processed by the admin
-                   * send an email for the order id 
-                  */
-                  if (sendOrder.data.message === "You have sent an amount less than to the total price. Sorry be we don't offer refund.") {
-                    dispath({ type: "PAYMENT_RECEIVED", payload: true})
-                    dispath({ type: "PAYMENT_ERROR", payload: true})
+
+                    /**
+                     * Update product list details
+                     */
+                    let p = await GetProductsAPI()
+                    if (p.status === 200) dispath({ type: "SET_PRODUCTS", payload: p.data.message })
+
+                  } else {
+                    /**
+                     * If there is an error, notify user that the payment was received
+                     * and is being processed by the admin
+                     * send an email for the order id 
+                     * 
+                     * else show Invalid transaction error
+                    */
+                    if (sendOrder.data.message === "You have sent an amount less than to the total price. Sorry be we don't offer refund.") {
+                      dispath({ type: "PAYMENT_RECEIVED", payload: true})
+                      dispath({ type: "PAYMENT_ERROR", payload: true})
+                    } else {
+                      dispath({ type: "PAYMENT_RECEIVED", payload: true})
+                      dispath({ type: "TRANSACTION_ERROR", payload: true})
+                    }
                   }
               } else {
                   console.log("LOG received is below order total price")
@@ -504,8 +519,8 @@ export default function Form(props) {
             </div>
 
             <div className="frow">
-              <button onClick={(e) => {e.preventDefault(); onSubmit()}} className="primary-button">Continue</button>
               <button onClick={(e) => {e.preventDefault(); navigate("/basket")}} className="cancel-button">Cancel</button>
+              <button onClick={(e) => {e.preventDefault(); onSubmit()}} className="primary-button">Continue</button>
             </div>
           </> 
           : 

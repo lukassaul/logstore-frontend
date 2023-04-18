@@ -123,6 +123,8 @@ export default function Details() {
           setOrderedSize(size)
           setSelectSizeError('')
           setSizeQuantity(size)
+          setItemCount(0)
+          setItemCountError('')
         }}
       >
         {size}
@@ -149,6 +151,12 @@ export default function Details() {
     }
   }
 
+  const showAvailableQuantityOthers = () => {
+    
+    return (<p className="available-pcs mt1">Available stocks: {datas.totalQty}</p>)
+      
+  }
+
   function itemQuantityController(operation) {
     //console.log("available stock: ", availableStock)
     if (datas.category === "Tshirts" && !orderedSize) {
@@ -159,6 +167,8 @@ export default function Details() {
       setItemCount(itemCount + 1)
       setItemCountError('')
       return
+    } else {
+      setItemCountError('You have reached the maximum quantity available for this item')
     }
     if (operation==="MINUS" && itemCount >= 1) {
       setItemCount(itemCount - 1)
@@ -178,12 +188,12 @@ export default function Details() {
         <div className="faacenter">
           <span className="mr1">Quantity: </span>
           <div className="basket_buttons">
-            <span className="basket_plus" onClick={() => itemQuantityController("ADD")}>
-              <AiOutlinePlus />
-            </span>
-            <span className="counter_number">{itemCount && itemCount}</span>
             <span className="basket_minus" onClick={() => itemQuantityController("MINUS")}>
               <AiOutlineMinus />
+            </span>
+            <span className="counter_number">{itemCount && itemCount}</span>
+            <span className="basket_plus" onClick={() => itemQuantityController("ADD")}>
+              <AiOutlinePlus />
             </span>
           </div>
         </div>
@@ -261,6 +271,8 @@ export default function Details() {
             : 
             null
           }
+
+          {datas && datas.category !== "Tshirts" ? showAvailableQuantityOthers() : null}
 
           {datas && datas.category === "Tshirts" && orderedSize ? showAvailableQuantity() : null}
 

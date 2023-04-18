@@ -61,13 +61,13 @@ export default function Home() {
       {allCategoriesLink()}
 
       <div>
-        {ProductOdd(dispath, "bg-olive", "landing_shirt.png", "TSHIRTS", "Tshirts", "Dailai", "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae maiores fuga eos provident voluptas perferendis.")}
+        {ProductOdd(dispath, "bg-olive", "landing_shirt.png", "TSHIRTS", "Tshirts", "Dailai", "Introducing our classic cotton t-shirt with a stylish logo. Made from 100% pure cotton, this t-shirt is soft and comfortable, perfect for everyday wear.")}
 
-        {ProductEven(dispath, "bg-pink", "landing_tumbler.png", "TUMBLERS", "Tumbler", "Noomer", "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae maiores fuga eos provident voluptas perferendis.")}
+        {ProductEven(dispath, "bg-pink", "landing_tumbler.png", "TUMBLERS", "Tumbler", "Noomer", "Introducing our sleek and durable water bottle, designed to keep you hydrated on the go! Made from high-quality materials, this bottle is perfect for outdoor adventures, gym sessions, or simply for daily use.")}
 
-        {ProductOdd(dispath, "bg-blue", "landing_cap.png", "CAPS", "Caps", "Vermont Secure", "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae maiores fuga eos provident voluptas perferendis.")}
+        {ProductOdd(dispath, "bg-blue", "landing_cap.png", "CAPS", "Caps", "Vermont Secure", "Whether you're heading to the gym or running errands, this cap will keep you looking and feeling great. Introducing our versatile and stylish cap with a custom logo, perfect for any occasion!")}
 
-        {ProductEven(dispath, "bg-green", "landing_usb.png", "USB", "USB Flashdrive", "Woodcoin", "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae maiores fuga eos provident voluptas perferendis.")}
+        {ProductEven(dispath, "bg-green", "landing_usb.png", "USB", "USB Flashdrive", "Woodcoin", "Upgrade your digital storage game today with our USB drive. Aside from its sleek and unique look, it also comes with a pre-loaded applications to safely store your digital assets.")}
 
         {allCategoriesLink()}
       </div>

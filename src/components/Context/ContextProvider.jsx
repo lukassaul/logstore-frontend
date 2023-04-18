@@ -23,6 +23,7 @@ const initialState = {
   shippingAddress: {},
   paymentReceived: false,
   paymentError: false,
+  transactionError: false,
   sendingOrder: false
 };
 
@@ -175,6 +176,12 @@ const reduce = (state, action) => {
     }
     case "PAYMENT_ERROR": {
       state.paymentError = action.payload
+      return {
+        ...state,
+      };
+    }
+    case "TRANSACTION_ERROR": {
+      state.transactionError = action.payload
       return {
         ...state,
       };
