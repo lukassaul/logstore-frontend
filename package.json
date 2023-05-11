@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "export PORT=3002 && react-scripts start",
-    "build": "react-scripts build",
+    "build": "env-cmd -f .env.production craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -50,6 +50,9 @@
     ]
   },
   "devDependencies": {
-    "react-app-rewired": "^2.2.1"
+    "@craco/craco": "^7.1.0",
+    "env-cmd": "^10.1.0",
+    "react-app-rewired": "^2.2.1",
+    "webpack-bundle-analyzer": "^4.8.0"
   }
 }
