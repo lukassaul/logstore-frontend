@@ -23,7 +23,7 @@ export default function Footer() {
         <span>Quick access</span>
         <div className="footer_link_box">
           <Link to={"/basket"}>Shopping cart</Link>
-          <Link to={"/products"}>Products</Link>
+          {/* <Link to={"/products"}>Products</Link> */}
         </div>
       </div>
     </footer>
