@@ -20,10 +20,10 @@ export default function Basket() {
       <div className="favorite_container_linkBar">
         <div className="favorite_linkBar">
           <span>Shopping cart</span>
-          <Link className="favorite_backLink" to={"/products"}>
+          {/* <Link className="favorite_backLink" to={"/products"}>
             <HiArrowRight />
               Products page
-          </Link>
+          </Link> */}
         </div>
         {state.basket.length > 0 && (
           <div className="favorite_linkBar">

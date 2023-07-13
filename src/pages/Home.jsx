@@ -1,16 +1,38 @@
 import React, { useState, useCallback, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AiOutlineArrowRight } from "react-icons/ai";
-import { FilterDispath } from '../components/Context/ContextFilter';
-import allCategoriesLink from 'components/Home/AllCategoriesLink';
-import ProductOdd from 'components/Home/ProductOdd';
-import ProductEven from 'components/Home/ProductEven';
+// import { AiOutlineArrowRight } from "react-icons/ai";
+import { FilterDispath, FilterContext } from '../components/Context/ContextFilter';
+// import allCategoriesLink from 'components/Home/AllCategoriesLink';
+// import ProductOdd from 'components/Home/ProductOdd';
+// import ProductEven from 'components/Home/ProductEven';
 import Footer from 'components/Footer/Footer';
+import Card from 'components/Products/Card/Card';
+
+import { GetProductsAPI } from "api/getProducts";
+import { BsJustifyLeft } from 'react-icons/bs';
 
 export default function Home() {
 
+  const { state } = useContext(FilterContext);
   const { dispath } = useContext(FilterDispath);
   const navigate = useNavigate()
+
+  const getProducts = async() => {
+    if(state.filteredItems.length === 0) {
+      let p = await GetProductsAPI()
+      if (p.status === 200) dispath({ type: "SET_PRODUCTS", payload: p.data.message })
+    }
+  }
+
+  useEffect(() => {
+    getProducts()
+  }, [])
+  
+  const productsList = state.filteredItems.filter((product) => {
+    if(state.searchKey)
+      return product.title.toLowerCase().includes(state.searchKey.toLowerCase()) || !state.searchKey;
+    else return product.title.includes(state.searchKey) || !state.searchKey;
+  });
 
   const appearOptions = {
     threshold: 0,
@@ -49,16 +71,37 @@ export default function Home() {
 
   return (
     <main>
-      <section className="home-intro">
+      {/* <section className="home-intro">
         
-      </section>
+      </section> */}
 
       <div className="home-about">
-        <p className='mb1 bold fs-26px tactr'>Welcome to mylog store!</p>
-        <p>We are excited to offer a convenient and secure way to shop using Cryptocurrency payments. Our store features a wide variety of high-quality products, .........more. With our easy-to-use checkout process, you can quickly and securely complete your purchase using Woodcoin. Shop with confidence, knowing that your payment information is protected by the latest encryption technology. Start browsing our selection today and experience the future of online shopping with cryptocurrency!</p>
+        <div className="home-banner-text">
+          <p className='mb1 bold fs-26px tactr green-color'>Welcome to MylogStore!</p>
+          <p>We are excited to offer a convenient and secure way to shop using Cryptocurrency payments. Our store features a wide variety of high-quality products, .........more. With our easy-to-use checkout process, you can quickly and securely complete your purchase using Woodcoin. Shop with confidence, knowing that your payment information is protected by the latest encryption technology. Start browsing our selection today and experience the future of online shopping with cryptocurrency!</p>
+        </div>
       </div>
 
-      {allCategoriesLink()}
+      
+      {/*!-- Parallax banner -->*/}
+        <div className='parallax-section'>
+          <div>
+            <div className="fend">
+                <img src='images/landing_big_bg_shirt4.png' width={'80%'}/>
+            </div>
+          </div>
+        </div>
+      {/*!-- Parallax banner end -->*/}
+
+
+      <div style={{textAlign: 'center', padding: '4em 0 2em'}}>
+        <p className='home-title'>Tshirt Collections</p>
+      </div>
+      <div className="product_container">
+        {productsList.map((product) => <Card key={product._id} {...product} />)}
+      </div>
+      
+      {/* {allCategoriesLink()}
 
       <div>
         {ProductOdd(dispath, "bg-olive", "landing_shirt.png", "TSHIRTS", "Tshirts", "Dailai", "Introducing our classic cotton t-shirt with a stylish logo. Made from 100% pure cotton, this t-shirt is soft and comfortable, perfect for everyday wear.")}
@@ -70,7 +113,7 @@ export default function Home() {
         {ProductEven(dispath, "bg-green", "landing_usb.png", "USB", "USB Flashdrive", "Woodcoin", "Upgrade your digital storage game today with our USB drive. Aside from its sleek and unique look, it also comes with a pre-loaded applications to safely store your digital assets.")}
 
         {allCategoriesLink()}
-      </div>
+      </div> */}
 
       <Footer />
     </main>
