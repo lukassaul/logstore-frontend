@@ -1149,7 +1149,7 @@ body {
   height: 60vh;
   padding: 10vh 4em;
   margin: 3em auto 0;
-  background: url('../public/images/landing_header_two.png');
+  background: url('../public/images/landing_header_x.png');
   background-position: center center;
   background-size: cover;
   color: #5A5A5A;
@@ -1174,7 +1174,7 @@ body {
 */
 .parallax-section {
   /* The image used */
-  background-image: url("../public/images/landing_big_bg_plain2.png");
+  background-image: url("../public/images/landing_big_bg_plainx.png");
 
   /* Set a specific height */
   min-height: 500px; 
