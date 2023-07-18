@@ -76,9 +76,23 @@ export default function Home() {
       </section> */}
 
       <div className="home-about">
-        <div className="home-banner-text">
-          <p className='mb1 bold fs-26px tactr green-color'>Welcome to MylogStore!</p>
-          <p>We are excited to offer a convenient and secure way to shop using Cryptocurrency payments. Our store features a wide variety of high-quality products, .........more. With our easy-to-use checkout process, you can quickly and securely complete your purchase using Woodcoin. Shop with confidence, knowing that your payment information is protected by the latest encryption technology. Start browsing our selection today and experience the future of online shopping with cryptocurrency!</p>
+        <div className="home-banner-text mb2">
+          <img 
+            src="https://res.cloudinary.com/dba8ifej6/image/upload/v1689646403/mylogstore_text_zbqioj.png" 
+            alt="MyLogstore"
+            className='logo_text_img' 
+          />
+          <p className='txt-justify'>We are excited to offer a convenient and secure way to shop using Cryptocurrency payments. Our store features a wide variety of high-quality products, .........more. With our easy-to-use checkout process, you can quickly and securely complete your purchase using Woodcoin. Shop with confidence, knowing that your payment information is protected by the latest encryption technology. Start browsing our selection today and experience the future of online shopping with cryptocurrency!</p>
+        </div>
+        <div className="home-banner-text"> 
+          {/* <p className='tactr bold fs-26px green-color'>No LOG's yet?</p> */}
+          <p className='txt-justify'><span className='bold'>No LOG's yet?</span> You can buy them at the following exchanges: </p>
+          <div className='fgap1'>
+            <a href="https://hermesus.com" target='_blank'>Hermesus,</a>
+            <a href="https://dex-trade.com" target='_blank'>Dex-trade,</a>
+            <a href="https://finexbox.com" target='_blank'>Finexbox,</a>
+            <a href="https://bitstorage.finance/" target='_blank'>Bitstorage</a>
+          </div>
         </div>
       </div>
 

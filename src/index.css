@@ -169,6 +169,10 @@ body {
   font-size: 20px;
 }
 
+.logo_text_img {
+  width: 100%;
+}
+
 .green-color {
   color: var(--primary-color-1);
 }
@@ -1169,12 +1173,16 @@ body {
 .home-title {
   font-size: 4em;
 }
+
+.txt-justify {
+  text-align: justify;
+}
 /**
   Parallax section
 */
 .parallax-section {
   /* The image used */
-  background-image: url("../public/images/landing_big_bg_plainx.png");
+  background-image: url("../public/images/landing_big_bg_plainxx.png");
 
   /* Set a specific height */
   min-height: 500px; 
@@ -1391,6 +1399,17 @@ body {
 
   .bg-size40 {
     background-size: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+
+  .home-about {
+    padding: 2em 1em;
+  }
+  
+  .home-banner-text {
+    width: 100%;
   }
 }
 
@@ -1781,6 +1800,11 @@ body {
 /**
   Flex containers
 **/
+.fgap1 {
+  display: flex;
+  gap: .5em
+}
+
 .fcenter {
   display: flex;
   justify-content: center;
