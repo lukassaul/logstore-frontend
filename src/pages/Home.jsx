@@ -109,7 +109,7 @@ export default function Home() {
 
 
       <div style={{textAlign: 'center', padding: '4em 0 2em'}}>
-        <p className='home-title'>Tshirt Collections</p>
+        <p className='home-title'>Our Collections</p>
       </div>
       <div className="product_container">
         {productsList.map((product) => <Card key={product._id} {...product} />)}

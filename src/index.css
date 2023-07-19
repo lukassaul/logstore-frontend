@@ -1177,6 +1177,14 @@ body {
 .txt-justify {
   text-align: justify;
 }
+
+.fgap1 > a:visited, a:focus, a:active{
+  color: #007e51;
+}
+
+.fgap1 > a:hover {
+  font-weight: bold;
+}
 /**
   Parallax section
 */
