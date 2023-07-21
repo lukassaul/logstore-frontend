@@ -82,6 +82,17 @@ body {
   width: 5px;
 }
 
+.fill-height {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.area_fill {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
 
 /**
   Header css
@@ -1593,6 +1604,7 @@ body {
 **/
 
 
+
 /**
   Checkout css
 **/
@@ -1664,6 +1676,10 @@ body {
   padding: 2em 0;
 }
 
+.pv2hhalf {
+  padding: 2em 0.5em;
+}
+
 .pv3h4 {
   padding: 3em 4em;
 }
@@ -1672,6 +1688,10 @@ body {
   Background css
 **/
 .formBack {
+  background-color: var(--form-background);
+}
+
+.green_bg {
   background-color: var(--form-background);
 }
 

@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import Products from './components/Products/Products';
 import Checkout from './pages/Checkout';
 import Home from './pages/Home';
+import ContactUs from './pages/ContactUs';
 import ScrollToTop from './ScrollToTop';
 
 
@@ -18,6 +19,7 @@ function App() {
     { path: '/:id', element: <Details /> },
     { path: '/basket', element: <Basket /> },
     { path: '/checkout', element: <Checkout /> },
+    { path: '/contact_us', element: <ContactUs />},
     { path: '*', element: <Navigate to={'/'} /> },
   ])
   return (
