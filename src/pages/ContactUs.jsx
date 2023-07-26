@@ -11,7 +11,7 @@ export default function ContactUs() {
                     <p className="bold fs-26px mb1">Contact Us</p>
 
                     <p className="mb1">
-                        You can contact us by emailing us directly at <span className="bold">office@vtscc.org</span>. We strive to respond to all inquiries within 24 hours. 
+                        You can contact us by emailing us directly at <span className="bold">support@mylogstore.com</span>. We strive to respond to all inquiries within 24 hours. 
                     </p>
 
                     <div className="green_bg pv2hhalf mb1">
