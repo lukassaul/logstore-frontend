@@ -1189,8 +1189,8 @@ body {
   text-align: justify;
 }
 
-.fgap1 > a:visited, a:focus, a:active{
-  color: #007e51;
+.fgap1 > a:link, a:visited, a:focus, a:active{
+  color: #007e51 !important;
 }
 
 .fgap1 > a:hover {
@@ -1201,7 +1201,7 @@ body {
 */
 .parallax-section {
   /* The image used */
-  background-image: url("../public/images/landing_big_bg_plainxx.png");
+  background-image: url("../public/images/logstore_parallax_bg.png");
 
   /* Set a specific height */
   min-height: 500px; 

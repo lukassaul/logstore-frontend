@@ -88,6 +88,7 @@ export default function Home() {
           {/* <p className='tactr bold fs-26px green-color'>No LOG's yet?</p> */}
           <p className='txt-justify'><span className='bold'>No LOG's yet?</span> You can buy them at the following exchanges: </p>
           <div className='fgap1'>
+            <a href="https://azbit.com/" target='_blank'>Azbit,</a>
             <a href="https://hermesus.com" target='_blank'>Hermesus,</a>
             <a href="https://dex-trade.com" target='_blank'>Dex-trade,</a>
             <a href="https://finexbox.com" target='_blank'>Finexbox,</a>
