@@ -82,7 +82,21 @@ export default function Home() {
             alt="MyLogstore"
             className='logo_text_img' 
           />
-          <p className='txt-justify'>We are excited to offer a convenient and secure way to shop using Cryptocurrency payments. Our store features a wide variety of high-quality products, .........more. With our easy-to-use checkout process, you can quickly and securely complete your purchase using Woodcoin. Shop with confidence, knowing that your payment information is protected by the latest encryption technology. Start browsing our selection today and experience the future of online shopping with cryptocurrency!</p>
+          {/* <p className='txt-justify'>We are excited to offer a convenient and secure way to shop using Cryptocurrency payments. Our store features a wide variety of high-quality products, .........more. With our easy-to-use checkout process, you can quickly and securely complete your purchase using Woodcoin. Shop with confidence, knowing that your payment information is protected by the latest encryption technology. Start browsing our selection today and experience the future of online shopping with cryptocurrency!</p> */}
+
+          
+          <p><span>Status:</span>  Crypto demonstration mode Fully Live.</p>
+
+          <p><span>Shipping:</span>  All shipping included for USA orders, for 
+          other locations please contact vendors.</p>  
+
+          <p>Maintained by <span className='bold'>Vermont Secure Computing Consultancy</span>.</p>
+          <p className='mb1'>Products are made available by our vendors.</p>
+
+          <p>To add your products to the log store please
+          contact our administrators: 
+          info@mylogstore.com</p>
+
         </div>
         <div className="home-banner-text"> 
           {/* <p className='tactr bold fs-26px green-color'>No LOG's yet?</p> */}
